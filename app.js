@@ -1,16 +1,16 @@
 /**
  * ==========================================================================
- * SilentHub Enterprise - Core Logic
+ * SilentHub Enterprise - Core Logic & Staggered Animations
  * ==========================================================================
  */
 
 const scriptDatabase = [
     {
         id: "silenthub-oficial",
-        title: "Módulos Exclusivos",
+        title: "Scripts Exclusivos",
         folder: "SilentHub",
         scripts: [
-            { title: "Universal Payload", code: 'loadstring(game:HttpGet("https://silenthub-web.vercel.app/Scripts/SilentHub/Universal.lua"))()' }
+            { title: "Universal Script", code: 'loadstring(game:HttpGet("https://silenthub-web.vercel.app/Scripts/SilentHub/Universal.lua"))()' }
         ]
     },
     {
@@ -18,16 +18,16 @@ const scriptDatabase = [
         title: "CyberCode",
         folder: "Others",
         scripts: [
-            { title: "CyberCode Core", code: 'loadstring(game:HttpGet("https://silenthub-web.vercel.app/Scripts/Others/CyberCode.lua"))()' }
+            { title: "CyberCode Main", code: 'loadstring(game:HttpGet("https://silenthub-web.vercel.app/Scripts/Others/CyberCode.lua"))()' }
         ]
     },
     {
         id: "utilities-tools",
-        title: "Herramientas del Sistema",
+        title: "Rendimiento y Herramientas",
         folder: "Utilities",
         scripts: [
-            { title: "Boost FPS Engine", code: 'loadstring(game:HttpGet("https://silenthub-web.vercel.app/Scripts/Utilities/BoostFps"))()' },
-            { title: "ShiftLock Override", code: 'loadstring(game:HttpGet("https://silenthub-web.vercel.app/Scripts/Utilities/ShiftLock"))()' }
+            { title: "Boost FPS", code: 'loadstring(game:HttpGet("https://silenthub-web.vercel.app/Scripts/Utilities/BoostFps"))()' },
+            { title: "Universal ShiftLock", code: 'loadstring(game:HttpGet("https://silenthub-web.vercel.app/Scripts/Utilities/ShiftLock"))()' }
         ]
     }
 ];
@@ -83,15 +83,19 @@ function renderSidebar() {
         { name: "Utilities", id: "Utilities", isOpen: false }
     ];
 
-    folderOrder.forEach(folder => {
+    let delayIndex = 0;
+
+    folderOrder.forEach((folder) => {
         const folderGames = scriptDatabase.filter(g => g.folder === folder.id);
         if (folderGames.length === 0) return;
 
         const folderDiv = document.createElement('div');
-        folderDiv.className = 'mb-1';
+        folderDiv.className = 'mb-1 animate-slide-up';
+        folderDiv.style.animationDelay = `${delayIndex * 0.05}s`;
+        delayIndex++;
 
         const headerBtn = document.createElement('button');
-        headerBtn.className = 'w-full flex items-center justify-between px-3 py-2 rounded-md text-xs font-semibold text-textMuted hover:text-white transition-all text-left';
+        headerBtn.className = 'w-full flex items-center justify-between px-3 py-2 rounded-md text-[11px] font-semibold text-textMuted hover:text-white transition-all text-left';
         
         const initialRotation = folder.isOpen ? 'rotate(90deg)' : 'rotate(0deg)';
         const titleColor = folder.id === 'SilentHub' ? 'text-primary' : 'text-white';
@@ -99,7 +103,7 @@ function renderSidebar() {
         headerBtn.innerHTML = `
             <div class="flex items-center gap-2">
                 <svg class="w-3 h-3 transition-transform duration-200" id="icon-${folder.id}" style="transform: ${initialRotation}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                <span class="${titleColor} uppercase tracking-wider">${folder.name}</span>
+                <span class="${titleColor} uppercase tracking-[0.1em]">${folder.name}</span>
             </div>
         `;
 
@@ -126,7 +130,7 @@ function renderSidebar() {
             
             btn.innerHTML = `
                 <span class="truncate">${game.title}</span>
-                <span class="text-[9px] font-mono bg-surface border border-border px-1 rounded opacity-70">${game.scripts.length}</span>
+                <span class="text-[9px] font-mono bg-surface border border-border px-1 rounded opacity-70 text-primaryLight">${game.scripts.length}</span>
             `;
             contentDiv.appendChild(btn);
             currentTotalScripts += game.scripts.length;
@@ -145,21 +149,23 @@ function renderScriptsGrid(scriptsArray, containerId) {
 
     if (scriptsArray.length === 0) return;
 
-    scriptsArray.forEach((script) => {
+    scriptsArray.forEach((script, idx) => {
         const safeCode = script.code.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));
         const escapedForCopy = script.code.replace(/\\/g, '\\\\').replace(/"/g, '&quot;');
         
         const card = document.createElement('div');
-        card.className = 'spotlight-card flex flex-col h-full border border-border';
+        card.className = 'spotlight-card flex flex-col h-full animate-slide-up';
+        card.style.animationDelay = `${idx * 0.08}s`; // Efecto Cascada
+
         card.innerHTML = `
             <div class="flex items-center justify-between p-3 border-b border-border bg-surface">
                 <h3 class="font-medium text-white text-xs truncate pr-2">${script.title}</h3>
-                <button onclick="copyToClipboard(this, \`${escapedForCopy}\`)" class="shrink-0 p-1 rounded hover:bg-white hover:text-black text-textMuted transition-all">
+                <button onclick="copyToClipboard(this, \`${escapedForCopy}\`)" class="shrink-0 p-1.5 rounded hover:bg-primary/10 text-textMuted hover:text-primary transition-colors">
                     <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                 </button>
             </div>
-            <div class="p-3 bg-[#030303] flex-1 relative group overflow-hidden">
-                <pre class="code-block text-textMuted overflow-x-auto thin-scrollbar pb-1"><code>${safeCode}</code></pre>
+            <div class="p-3 bg-black flex-1 relative overflow-hidden">
+                <pre class="code-block text-textMuted overflow-x-auto custom-scrollbar pb-1 text-[11px]"><code>${safeCode}</code></pre>
             </div>
         `;
         container.appendChild(card);
@@ -188,22 +194,24 @@ function handleSearch(e) {
         if(!container) return;
         container.innerHTML = '';
         
-        results.forEach(script => {
+        results.forEach((script, idx) => {
             const escapedForCopy = script.code.replace(/\\/g, '\\\\').replace(/"/g, '&quot;');
             const card = document.createElement('div');
-            card.className = 'spotlight-card flex flex-col h-full border border-border';
+            card.className = 'spotlight-card flex flex-col h-full animate-slide-up';
+            card.style.animationDelay = `${idx * 0.08}s`;
+
             card.innerHTML = `
                 <div class="flex items-center justify-between p-3 border-b border-border bg-surface">
                     <div class="overflow-hidden pr-2">
                         <div class="text-[9px] text-primary font-mono uppercase truncate">${script.folder} / ${script.parent}</div>
                         <h3 class="font-medium text-white text-xs truncate">${script.title}</h3>
                     </div>
-                    <button onclick="copyToClipboard(this, \`${escapedForCopy}\`)" class="shrink-0 p-1 rounded hover:bg-white hover:text-black text-textMuted transition-all">
+                    <button onclick="copyToClipboard(this, \`${escapedForCopy}\`)" class="shrink-0 p-1.5 rounded hover:bg-primary/10 text-textMuted hover:text-primary transition-colors">
                         <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                     </button>
                 </div>
-                <div class="p-3 bg-[#030303] flex-1 relative overflow-hidden">
-                    <pre class="code-block text-textMuted overflow-x-auto thin-scrollbar pb-1"><code>${script.code.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]))}</code></pre>
+                <div class="p-3 bg-black flex-1 relative overflow-hidden">
+                    <pre class="code-block text-textMuted overflow-x-auto custom-scrollbar pb-1 text-[11px]"><code>${script.code.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]))}</code></pre>
                 </div>
             `;
             container.appendChild(card);
@@ -217,17 +225,18 @@ function handleSearch(e) {
 function copyToClipboard(btnElement, text) {
     navigator.clipboard.writeText(text).then(() => {
         const originalHtml = btnElement.innerHTML;
+        // SVG Checkmark
         btnElement.innerHTML = `<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>`;
-        btnElement.classList.add('bg-white', 'text-black');
-        btnElement.classList.remove('hover:bg-white', 'text-textMuted');
+        btnElement.classList.add('text-primary');
+        btnElement.classList.remove('text-textMuted');
 
         const toast = document.getElementById('toast');
         if(toast) toast.classList.remove('translate-y-20', 'opacity-0');
         
         setTimeout(() => {
             btnElement.innerHTML = originalHtml;
-            btnElement.classList.remove('bg-white', 'text-black');
-            btnElement.classList.add('hover:bg-white', 'text-textMuted');
+            btnElement.classList.remove('text-primary');
+            btnElement.classList.add('text-textMuted');
             if(toast) toast.classList.add('translate-y-20', 'opacity-0');
         }, 2000);
     });
@@ -251,12 +260,12 @@ function initTerminalSim() {
     terminal.innerHTML = '';
     
     const logs = [
-        { type: 'info', msg: 'Resolviendo punteros DNS hacia red Vercel Edge...' },
-        { type: 'success', msg: 'Handshake de seguridad completado (TLS 1.3)' },
-        { type: 'info', msg: 'Verificando firmas de integridad en repositorios remotos...' },
-        { type: 'success', msg: 'Integridad validada. Checksum coincide.' },
-        { type: 'warn', msg: 'Aguardando ping del ejecutor cliente...' },
-        { type: 'success', msg: 'Túnel de inyección preparado y en espera.' }
+        { type: 'info', msg: 'Resolviendo punteros DNS hacia Vercel Edge...' },
+        { type: 'success', msg: 'Handshake TLS 1.3 establecido.' },
+        { type: 'info', msg: 'Verificando firmas SHA-256 en repositorios...' },
+        { type: 'success', msg: 'Integridad criptográfica validada.' },
+        { type: 'warn', msg: 'Aguardando handshake de ejecutores LUA...' },
+        { type: 'success', msg: 'Túnel de memoria [READY]. Esperando inyección.' }
     ];
 
     let delay = 0;
@@ -269,7 +278,7 @@ function initTerminalSim() {
             const timeStr = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
             
             let colorClass = log.type === 'success' ? 'log-success' : log.type === 'warn' ? 'log-warn' : 'log-info';
-            let prefix = log.type === 'success' ? '[SYS_OK]' : log.type === 'warn' ? '[SYS_WARN]' : '[SYS_INFO]';
+            let prefix = log.type === 'success' ? '[OK]' : log.type === 'warn' ? '[WARN]' : '[SYS]';
             
             div.innerHTML = `<span class="log-time">${timeStr}</span> <span class="${colorClass}">${prefix}</span> <span class="text-gray-400 ml-1">${log.msg}</span>`;
             terminal.appendChild(div);

@@ -2,8 +2,14 @@
 <html lang="es" class="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SilentHub | Code Execution Engine</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- Optimizaciones PWA para iPhone y Android -->
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <title>SilentHub | Enterprise Execution Engine</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,18 +29,24 @@
                         background: '#000000',
                         surface: '#000000',
                         surfaceHover: '#0a0a0a',
-                        border: 'rgba(255, 255, 255, 0.05)',
-                        borderHover: 'rgba(255, 255, 255, 0.12)',
-                        primary: '#eab308', // Dorado/Ámbar profesional
+                        border: 'rgba(255, 255, 255, 0.06)',
+                        primary: '#eab308',
+                        primaryLight: '#fde047',
                         textMuted: '#a1a1aa',
                     },
                     animation: {
                         'fade-in': 'fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
                         'slide-up': 'slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'pulse-gold': 'pulseGold 6s ease-in-out infinite',
+                        'gradient-x': 'gradientX 4s ease infinite',
+                        'float': 'float 6s ease-in-out infinite',
                     },
                     keyframes: {
                         fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
                         slideUp: { '0%': { opacity: '0', transform: 'translateY(15px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+                        pulseGold: { '0%, 100%': { opacity: '0.08', transform: 'scale(1)' }, '50%': { opacity: '0.15', transform: 'scale(1.05)' } },
+                        gradientX: { '0%, 100%': { 'background-size': '200% 200%', 'background-position': 'left center' }, '50%': { 'background-size': '200% 200%', 'background-position': 'right center' } },
+                        float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-8px)' } },
                     }
                 }
             }
@@ -44,227 +56,223 @@
     <link rel="stylesheet" href="style.css">
     <script src="app.js" defer></script>
 </head>
-<body class="min-h-screen flex overflow-hidden selection:bg-primary/20 selection:text-primary bg-background text-white">
+<body class="min-h-[100dvh] flex overflow-hidden selection:bg-primary/20 selection:text-primaryLight bg-background text-white overscroll-none">
 
-    <!-- Grid Sutil -->
+    <!-- Grid Sutil y Brillo Dorado de Fondo -->
     <div class="fixed inset-0 z-0 pointer-events-none">
         <div class="absolute inset-0 bg-grid"></div>
-        <div class="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/5 rounded-full blur-[120px]"></div>
+        <div class="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary rounded-full blur-[150px] animate-pulse-gold"></div>
     </div>
 
-    <!-- Sidebar -->
-    <aside id="sidebar" class="w-72 border-r border-border bg-background flex flex-col z-40 relative transition-transform duration-300 max-lg:fixed max-lg:inset-y-0 max-lg:-translate-x-full">
+    <!-- Sidebar (Adaptable a Móvil) -->
+    <aside id="sidebar" class="w-72 border-r border-border bg-background flex flex-col z-40 relative transition-transform duration-300 max-lg:fixed max-lg:inset-y-0 max-lg:left-0 max-lg:-translate-x-full shadow-[4px_0_24px_rgba(0,0,0,0.5)]">
         
-        <!-- Logo SVG Premium -->
         <div class="h-20 flex items-center px-6 border-b border-border">
             <div class="flex items-center gap-3">
-                <svg class="w-7 h-7 text-primary drop-shadow-[0_0_8px_rgba(234,179,8,0.4)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="w-6 h-6 text-primary drop-shadow-[0_0_12px_rgba(234,179,8,0.5)] animate-float" viewBox="0 0 24 24" fill="currentColor" stroke="none">
                     <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
                 </svg>
-                <span class="font-bold text-sm tracking-widest text-white">SILENT<span class="text-primary">HUB</span></span>
+                <span class="font-bold text-sm tracking-widest text-white uppercase">Silent<span class="text-primary">Hub</span></span>
             </div>
-            <button id="close-mobile-menu" class="lg:hidden ml-auto text-textMuted hover:text-white">
+            <button id="close-mobile-menu" class="lg:hidden ml-auto text-textMuted hover:text-primary transition-colors p-2">
                 <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
             </button>
         </div>
 
-        <!-- Buscador -->
         <div class="p-4 border-b border-border">
             <div class="relative group">
                 <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-textMuted group-focus-within:text-primary transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                <input type="text" id="global-search" placeholder="Buscar módulos..." class="w-full bg-surfaceHover border border-border focus:border-primary/50 rounded-lg pl-10 pr-4 py-2.5 text-sm text-white placeholder-textMuted outline-none transition-all">
+                <input type="text" id="global-search" placeholder="Indexar módulos..." class="w-full bg-surfaceHover border border-border focus:border-primary/50 rounded-lg pl-10 pr-4 py-2.5 text-xs font-mono text-white placeholder-textMuted outline-none transition-all focus:shadow-[0_0_15px_rgba(234,179,8,0.1)]">
             </div>
         </div>
 
-        <!-- Menú de Navegación -->
-        <div class="flex-1 overflow-y-auto px-3 py-4 space-y-1">
-            <p class="px-3 text-[10px] font-bold uppercase tracking-wider text-textMuted mb-2">Sistema</p>
-            <button onclick="navigateTo('home')" class="nav-item active w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-textMuted hover:text-white hover:bg-surfaceHover">
+        <div class="flex-1 overflow-y-auto px-3 py-4 space-y-1 custom-scrollbar">
+            <p class="px-3 text-[9px] font-bold uppercase tracking-[0.2em] text-textMuted mb-2 opacity-70">Sistema</p>
+            <button onclick="navigateTo('home')" class="nav-item active w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium text-textMuted hover:text-white hover:bg-surfaceHover">
                 <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
                 Visión General
             </button>
-            <button onclick="navigateTo('dashboard')" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-textMuted hover:text-white hover:bg-surfaceHover">
+            <button onclick="navigateTo('dashboard')" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium text-textMuted hover:text-white hover:bg-surfaceHover">
                 <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
                 Telemetría
             </button>
 
-            <p class="px-3 text-[10px] font-bold uppercase tracking-wider text-textMuted mt-6 mb-2">Repositorio</p>
-            <div id="dynamic-sidebar-categories" class="space-y-1">
-                <!-- Directorios inyectados por app.js -->
-            </div>
+            <p class="px-3 text-[9px] font-bold uppercase tracking-[0.2em] text-textMuted mt-6 mb-2 opacity-70">Directorios</p>
+            <div id="dynamic-sidebar-categories" class="space-y-1"></div>
         </div>
         
-        <!-- Badge Autoridad -->
-        <div class="p-4 border-t border-border mt-auto bg-background">
-            <div class="flex items-center gap-3 p-3 rounded-lg border border-border bg-surfaceHover/50">
-                <div class="w-8 h-8 rounded-md bg-black border border-primary/30 flex items-center justify-center">
-                    <svg class="w-5 h-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+        <div class="p-4 border-t border-border mt-auto bg-background z-10 pb-safe">
+            <div class="flex items-center gap-3 p-3 rounded-lg border border-primary/20 bg-primary/5 shadow-[0_0_15px_rgba(234,179,8,0.05)] cursor-default">
+                <div class="w-8 h-8 rounded-md bg-black border border-primary/40 flex items-center justify-center relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-primary/10 to-transparent"></div>
+                    <svg class="w-4 h-4 text-primary relative z-10" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
                 </div>
                 <div class="flex flex-col">
-                    <span class="text-xs font-bold text-white tracking-wide">Silent</span>
-                    <span class="text-[9px] text-primary font-mono tracking-widest uppercase">System Owner</span>
+                    <span class="text-[11px] font-bold text-white tracking-wide">Silent</span>
+                    <span class="text-[8px] text-primaryLight font-mono tracking-widest uppercase">System Owner</span>
                 </div>
             </div>
         </div>
     </aside>
 
-    <div id="mobile-overlay" class="fixed inset-0 bg-black/90 backdrop-blur-sm z-30 hidden lg:hidden"></div>
+    <div id="mobile-overlay" class="fixed inset-0 bg-black/90 backdrop-blur-sm z-30 hidden lg:hidden transition-opacity touch-none"></div>
 
     <!-- Main Content -->
-    <main class="flex-1 flex flex-col h-screen overflow-hidden relative z-10 bg-background">
+    <main class="flex-1 flex flex-col h-[100dvh] overflow-hidden relative z-10 bg-background">
         
-        <header class="h-20 flex items-center justify-between px-6 lg:px-10 border-b border-border">
-            <button id="open-mobile-menu" class="lg:hidden text-textMuted hover:text-white">
+        <header class="h-20 shrink-0 flex items-center justify-between px-6 lg:px-10 border-b border-border bg-background/50 backdrop-blur-md z-20 pt-safe">
+            <button id="open-mobile-menu" class="lg:hidden text-textMuted hover:text-primary transition-colors p-2 -ml-2">
                 <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
             </button>
             
-            <div class="hidden lg:flex items-center gap-2 text-xs text-textMuted font-mono uppercase tracking-wider">
+            <div class="hidden lg:flex items-center gap-2 text-[10px] text-textMuted font-mono uppercase tracking-[0.1em]">
                 <span id="breadcrumb-path">~/root/vision_general</span>
             </div>
 
             <div class="flex items-center gap-4 ml-auto">
-                <div class="flex items-center gap-2">
-                    <div class="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.5)] animate-pulse"></div>
-                    <span class="text-xs font-mono text-textMuted">CDN Activa</span>
+                <div class="flex items-center gap-2 px-3 py-1 rounded-full border border-primary/20 bg-primary/5">
+                    <div class="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_8px_rgba(234,179,8,0.8)] animate-pulse"></div>
+                    <span class="text-[9px] font-mono text-primaryLight uppercase tracking-wider hidden sm:inline">Red Segura</span>
                 </div>
             </div>
         </header>
 
-        <div class="flex-1 overflow-y-auto px-6 py-10 lg:px-12 pb-24 scroll-smooth">
+        <div class="flex-1 overflow-y-auto px-4 py-8 lg:px-12 lg:py-10 pb-32 scroll-smooth custom-scrollbar relative" id="main-scroll-area">
             
             <!-- VISTA: INICIO -->
-            <div id="view-home" class="view-section animate-fade-in max-w-5xl mx-auto">
-                <div class="flex flex-col items-center text-center mt-10">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/20 bg-primary/10 text-primary text-[10px] font-mono uppercase tracking-widest mb-6 animate-slide-up">
-                        Protocolo de Red Establecido
+            <div id="view-home" class="view-section animate-fade-in max-w-5xl mx-auto relative z-10">
+                <div class="flex flex-col items-center text-center mt-4 lg:mt-12">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border bg-surfaceHover text-textMuted text-[9px] font-mono uppercase tracking-[0.2em] mb-8 animate-slide-up">
+                        Protocolo Establecido <span class="text-primary">v2.0</span>
                     </div>
                     
-                    <h1 class="text-5xl lg:text-7xl font-bold tracking-tighter mb-6 animate-slide-up" style="animation-delay: 0.1s;">
-                        Despliegue de Código <br>
-                        <span class="text-white">en Tiempo Real.</span>
+                    <h1 class="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tighter mb-6 animate-slide-up leading-tight" style="animation-delay: 0.1s;">
+                        Infraestructura de Código <br>
+                        <span class="bg-clip-text text-transparent bg-gradient-to-r from-primary via-primaryLight to-yellow-600 animate-gradient-x drop-shadow-[0_0_30px_rgba(234,179,8,0.2)]">En Tiempo Real.</span>
                     </h1>
                     
-                    <p class="text-textMuted text-lg max-w-2xl mb-10 animate-slide-up" style="animation-delay: 0.2s;">
-                        Infraestructura de nivel empresarial diseñada para la distribución, ejecución y gestión de scripts. Operaciones de latencia cero para desarrolladores de alto rendimiento.
+                    <p class="text-textMuted text-sm lg:text-base max-w-2xl mb-12 animate-slide-up leading-relaxed px-4" style="animation-delay: 0.2s;">
+                        El estándar empresarial para la distribución y ejecución de scripts. Construido para garantizar latencia cero, ofuscación militar y despliegue global.
                     </p>
                 </div>
 
-                <div class="grid md:grid-cols-3 gap-6 mt-20 animate-slide-up" style="animation-delay: 0.4s;">
-                    <div class="spotlight-card p-6">
-                        <div class="w-8 h-8 flex items-center text-white mb-4">
-                            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 lg:mt-16 animate-slide-up" style="animation-delay: 0.4s;">
+                    <div class="spotlight-card p-6 flex flex-col items-center text-center group">
+                        <div class="w-12 h-12 rounded-full border border-primary/20 bg-primary/5 flex items-center justify-center text-primary mb-4 group-hover:scale-110 transition-transform duration-300">
+                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
                         </div>
-                        <h3 class="text-base font-semibold text-white mb-2">Inyección Directa</h3>
-                        <p class="text-sm text-textMuted leading-relaxed">Arquitectura optimizada que compila e inyecta rutinas en el cliente sin intermediarios.</p>
+                        <h3 class="text-sm font-semibold text-white mb-2">Inyección Directa</h3>
+                        <p class="text-xs text-textMuted leading-relaxed">Arquitectura sin intermediarios. Compilación y pase de memoria directo.</p>
                     </div>
-                    <div class="spotlight-card p-6">
-                        <div class="w-8 h-8 flex items-center text-white mb-4">
-                            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    <div class="spotlight-card p-6 flex flex-col items-center text-center group">
+                        <div class="w-12 h-12 rounded-full border border-primary/20 bg-primary/5 flex items-center justify-center text-primary mb-4 group-hover:scale-110 transition-transform duration-300">
+                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                         </div>
-                        <h3 class="text-base font-semibold text-white mb-2">Integridad Verificada</h3>
-                        <p class="text-sm text-textMuted leading-relaxed">Código fuente ofuscado y protegido mediante protocolos de seguridad estrictos.</p>
+                        <h3 class="text-sm font-semibold text-white mb-2">Ofuscación Avanzada</h3>
+                        <p class="text-xs text-textMuted leading-relaxed">Protección de código fuente y variables mediante algoritmos estrictos.</p>
                     </div>
-                    <div class="spotlight-card p-6">
-                        <div class="w-8 h-8 flex items-center text-white mb-4">
-                            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                    <div class="spotlight-card p-6 flex flex-col items-center text-center group">
+                        <div class="w-12 h-12 rounded-full border border-primary/20 bg-primary/5 flex items-center justify-center text-primary mb-4 group-hover:scale-110 transition-transform duration-300">
+                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
                         </div>
-                        <h3 class="text-base font-semibold text-white mb-2">Nodos Globales</h3>
-                        <p class="text-sm text-textMuted leading-relaxed">Distribución automatizada a través del ecosistema edge de Vercel y repositorios seguros.</p>
+                        <h3 class="text-sm font-semibold text-white mb-2">Red Edge Global</h3>
+                        <p class="text-xs text-textMuted leading-relaxed">Tus scripts se sirven desde el nodo CDN más cercano al cliente final.</p>
                     </div>
                 </div>
             </div>
 
             <!-- VISTA: DASHBOARD -->
             <div id="view-dashboard" class="view-section hidden animate-fade-in max-w-7xl mx-auto">
-                <div class="mb-8 border-b border-border pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
-                    <div>
-                        <h2 class="text-2xl font-bold tracking-tight text-white mb-1">Telemetría del Sistema</h2>
-                        <p class="text-textMuted text-sm">Monitoreo de tráfico, respuesta de ejecutores y registros de consola.</p>
-                    </div>
+                <div class="mb-6 lg:mb-8 border-b border-border pb-4 lg:pb-6 flex flex-col gap-2">
+                    <h2 class="text-2xl font-bold tracking-tight text-white">Telemetría del <span class="text-primary">Sistema</span></h2>
+                    <p class="text-textMuted text-xs">Monitoreo de tráfico, estado de nodos y registros en tiempo real.</p>
                 </div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                    <div class="spotlight-card col-span-1 md:col-span-2 p-6 flex flex-col">
-                        <h3 class="text-sm font-semibold text-white mb-6">Métricas de Red</h3>
-                        <div class="grid grid-cols-3 gap-4 mt-auto">
-                            <div class="border border-border rounded-lg p-4 bg-background">
-                                <div class="text-[10px] text-textMuted uppercase tracking-wider mb-2">Peticiones</div>
-                                <div class="font-mono text-white font-bold text-xl">12.4<span class="text-xs text-textMuted ml-1">k</span></div>
+                <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                    <div class="spotlight-card col-span-1 lg:col-span-2 p-6 flex flex-col">
+                        <h3 class="text-xs font-semibold text-white mb-6 uppercase tracking-wider">Métricas de Red</h3>
+                        <div class="grid grid-cols-3 gap-3 mt-auto">
+                            <div class="border border-border/50 rounded-lg p-3 bg-background/50 text-center sm:text-left">
+                                <div class="text-[9px] text-textMuted uppercase tracking-wider mb-1 sm:mb-2">Reqs. Est.</div>
+                                <div class="font-mono text-white font-bold text-lg sm:text-xl">14.2<span class="text-[9px] sm:text-[10px] text-primary ml-1">k</span></div>
                             </div>
-                            <div class="border border-border rounded-lg p-4 bg-background">
-                                <div class="text-[10px] text-textMuted uppercase tracking-wider mb-2">Latencia API</div>
-                                <div class="font-mono text-white font-bold text-xl">14<span class="text-xs text-textMuted ml-1">ms</span></div>
+                            <div class="border border-border/50 rounded-lg p-3 bg-background/50 text-center sm:text-left">
+                                <div class="text-[9px] text-textMuted uppercase tracking-wider mb-1 sm:mb-2">Latencia</div>
+                                <div class="font-mono text-white font-bold text-lg sm:text-xl">08<span class="text-[9px] sm:text-[10px] text-primary ml-1">ms</span></div>
                             </div>
-                            <div class="border border-border rounded-lg p-4 bg-background">
-                                <div class="text-[10px] text-textMuted uppercase tracking-wider mb-2">Uptime</div>
-                                <div class="font-mono text-white font-bold text-xl text-green-400">99.9%</div>
+                            <div class="border border-border/50 rounded-lg p-3 bg-background/50 text-center sm:text-left">
+                                <div class="text-[9px] text-textMuted uppercase tracking-wider mb-1 sm:mb-2">Uptime</div>
+                                <div class="font-mono text-primaryLight font-bold text-lg sm:text-xl">99.9%</div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="spotlight-card col-span-1 md:col-span-1 lg:col-span-2 p-6 flex flex-col">
-                        <h3 class="text-sm font-semibold text-white mb-6">Salud de Nodos</h3>
+                    <div class="spotlight-card col-span-1 lg:col-span-2 p-6 flex flex-col">
+                        <h3 class="text-xs font-semibold text-white mb-6 uppercase tracking-wider">Salud de Nodos</h3>
                         <div class="space-y-4 flex-1">
-                            <div class="flex items-center justify-between border-b border-border pb-3">
+                            <div class="flex items-center justify-between border-b border-border/50 pb-3">
                                 <div class="flex items-center gap-3">
-                                    <div class="w-1.5 h-1.5 rounded-full bg-green-500"></div>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_5px_#eab308]"></div>
                                     <span class="text-xs text-white">Vercel Edge Network</span>
                                 </div>
-                                <span class="text-[10px] font-mono text-textMuted">Ruteado</span>
+                                <span class="text-[10px] font-mono text-primaryLight">Ruteado</span>
                             </div>
-                            <div class="flex items-center justify-between border-b border-border pb-3">
+                            <div class="flex items-center justify-between border-b border-border/50 pb-3">
                                 <div class="flex items-center gap-3">
-                                    <div class="w-1.5 h-1.5 rounded-full bg-green-500"></div>
-                                    <span class="text-xs text-white">GitHub CDN Repository</span>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_5px_#eab308]"></div>
+                                    <span class="text-xs text-white">GitHub API Data</span>
                                 </div>
-                                <span class="text-[10px] font-mono text-textMuted">Estable</span>
+                                <span class="text-[10px] font-mono text-primaryLight">Estable</span>
                             </div>
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center gap-3">
-                                    <div class="w-1.5 h-1.5 rounded-full bg-primary"></div>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-yellow-600 animate-pulse"></div>
                                     <span class="text-xs text-white">Ejecutores Cliente</span>
                                 </div>
-                                <span class="text-[10px] font-mono text-primary">Sincronizando</span>
+                                <span class="text-[10px] font-mono text-yellow-600">Sync...</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Terminal -->
-                    <div class="spotlight-card col-span-1 md:col-span-3 lg:col-span-4 flex flex-col overflow-hidden h-64 border border-border">
-                        <div class="bg-surfaceHover border-b border-border px-4 py-2 flex items-center gap-2">
-                            <span class="text-[10px] font-mono text-textMuted">root@silenthub:~# tail -f /var/log/system.log</span>
+                    <div class="spotlight-card col-span-1 lg:col-span-4 flex flex-col overflow-hidden h-64 sm:h-72 border border-border">
+                        <div class="bg-surfaceHover border-b border-border px-4 py-2 flex items-center justify-between">
+                            <span class="text-[9px] font-mono text-textMuted uppercase tracking-widest">System Log Monitor</span>
+                            <div class="flex gap-1.5">
+                                <div class="w-2 h-2 rounded-full bg-border"></div>
+                                <div class="w-2 h-2 rounded-full bg-border"></div>
+                                <div class="w-2 h-2 rounded-full bg-primary/50"></div>
+                            </div>
                         </div>
-                        <div class="p-4 flex-1 overflow-y-auto thin-scrollbar font-mono text-[11px] bg-background" id="terminal-logs"></div>
+                        <div class="p-3 sm:p-4 flex-1 overflow-y-auto custom-scrollbar font-mono text-[9px] sm:text-[11px] bg-background relative terminal-scanline" id="terminal-logs"></div>
                     </div>
                 </div>
             </div>
 
             <!-- VISTA: CATALOGO -->
             <div id="view-catalog" class="view-section hidden animate-fade-in max-w-6xl mx-auto">
-                <div class="mb-10 border-b border-border pb-4 flex justify-between items-end">
-                    <div>
-                        <div class="text-[10px] font-mono text-primary mb-1 uppercase tracking-widest" id="catalog-category">Directorio</div>
-                        <h2 class="text-2xl font-bold tracking-tight text-white" id="catalog-title">Módulo</h2>
-                    </div>
+                <div class="mb-6 lg:mb-8 border-b border-border pb-4">
+                    <div class="text-[9px] sm:text-[10px] font-mono text-primary mb-1 uppercase tracking-[0.2em]" id="catalog-category">Directorio</div>
+                    <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-white" id="catalog-title">Módulo</h2>
                 </div>
-                <div class="grid lg:grid-cols-2 gap-4" id="scripts-grid"></div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-5" id="scripts-grid"></div>
             </div>
 
             <!-- VISTA: BÚSQUEDA -->
             <div id="view-search" class="view-section hidden animate-fade-in max-w-6xl mx-auto">
-                <div class="mb-10 border-b border-border pb-4">
-                    <h2 class="text-xl font-bold text-white mb-1">Resultados de consulta</h2>
-                    <p class="text-textMuted text-xs">Query: <span id="search-query-display" class="text-primary font-mono bg-primary/10 px-1 rounded"></span></p>
+                <div class="mb-6 lg:mb-8 border-b border-border pb-4">
+                    <h2 class="text-lg sm:text-xl font-bold text-white mb-1">Resultados de indexación</h2>
+                    <p class="text-textMuted text-xs">Query procesada: <span id="search-query-display" class="text-primary font-mono bg-primary/10 border border-primary/20 px-1.5 py-0.5 rounded break-all"></span></p>
                 </div>
-                <div class="grid lg:grid-cols-2 gap-4" id="search-results-grid"></div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-5" id="search-results-grid"></div>
             </div>
 
         </div>
     </main>
 
-    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-3 bg-background border border-border shadow-2xl rounded-lg px-4 py-3">
-        <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
-        <span class="text-xs font-mono text-white">Payload copiado al portapapeles.</span>
+    <!-- Notificación Dorada (Adaptada a móvil) -->
+    <div id="toast" class="fixed bottom-safe right-4 left-4 sm:left-auto sm:right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 flex items-center justify-center sm:justify-start gap-3 bg-surfaceHover border border-primary/30 shadow-[0_5px_20px_rgba(234,179,8,0.15)] rounded-lg px-4 py-3 mb-6 sm:mb-0 pointer-events-none">
+        <svg class="w-4 h-4 text-primary shrink-0" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+        <span class="text-[11px] font-mono text-white text-center">Payload copiado al portapapeles.</span>
     </div>
 </body>
 </html>
