@@ -3,14 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SilentHub | Infraestructura de Scripts</title>
+    <title>SilentHub | Code Execution Engine</title>
     
-    <!-- Tipografía Premium -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS (Configuración Enterprise) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -23,63 +21,46 @@
                     },
                     colors: {
                         background: '#000000',
-                        surface: '#0A0A0A',
-                        surfaceHover: '#121212',
-                        border: 'rgba(255, 255, 255, 0.08)',
-                        borderHover: 'rgba(255, 255, 255, 0.15)',
-                        primary: '#3b82f6', // Azul eléctrico
-                        secondary: '#a855f7', // Morado elegante
-                        textMuted: '#888888',
+                        surface: '#000000',
+                        surfaceHover: '#0a0a0a',
+                        border: 'rgba(255, 255, 255, 0.05)',
+                        borderHover: 'rgba(255, 255, 255, 0.12)',
+                        primary: '#eab308', // Dorado/Ámbar profesional
+                        textMuted: '#a1a1aa',
                     },
                     animation: {
                         'fade-in': 'fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
                         'slide-up': 'slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-                        'pulse-glow': 'pulseGlow 4s ease-in-out infinite',
                     },
                     keyframes: {
-                        fadeIn: {
-                            '0%': { opacity: '0' },
-                            '100%': { opacity: '1' },
-                        },
-                        slideUp: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        },
-                        pulseGlow: {
-                            '0%, 100%': { opacity: '0.4' },
-                            '50%': { opacity: '0.8' },
-                        }
+                        fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+                        slideUp: { '0%': { opacity: '0', transform: 'translateY(15px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
                     }
                 }
             }
         }
     </script>
 
-    <!-- ⚡ AQUÍ ENLAZAMOS EL CSS EXTERNO ⚡ -->
     <link rel="stylesheet" href="style.css">
-    
-    <!-- ⚡ AQUÍ ENLAZAMOS EL JAVASCRIPT EXTERNO ⚡ -->
     <script src="app.js" defer></script>
 </head>
-<body class="min-h-screen flex overflow-hidden selection:bg-primary/30 selection:text-white">
+<body class="min-h-screen flex overflow-hidden selection:bg-primary/20 selection:text-primary bg-background text-white">
 
-    <!-- Fondo de Red Tecnológica -->
+    <!-- Grid Sutil -->
     <div class="fixed inset-0 z-0 pointer-events-none">
         <div class="absolute inset-0 bg-grid"></div>
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/10 rounded-full blur-[120px] animate-pulse-glow"></div>
-        <div class="absolute bottom-0 right-0 w-[600px] h-[300px] bg-secondary/10 rounded-full blur-[100px] animate-pulse-glow" style="animation-delay: 2s;"></div>
+        <div class="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/5 rounded-full blur-[120px]"></div>
     </div>
 
-    <!-- Sidebar (Navegación) -->
-    <aside id="sidebar" class="w-72 border-r border-border bg-black/50 backdrop-blur-xl flex flex-col z-40 relative transition-transform duration-300 max-lg:fixed max-lg:inset-y-0 max-lg:-translate-x-full">
-        <!-- Logo -->
+    <!-- Sidebar -->
+    <aside id="sidebar" class="w-72 border-r border-border bg-background flex flex-col z-40 relative transition-transform duration-300 max-lg:fixed max-lg:inset-y-0 max-lg:-translate-x-full">
+        
+        <!-- Logo SVG Premium -->
         <div class="h-20 flex items-center px-6 border-b border-border">
             <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-secondary p-px">
-                    <div class="w-full h-full bg-black rounded-[7px] flex items-center justify-center">
-                        <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-                    </div>
-                </div>
+                <svg class="w-7 h-7 text-primary drop-shadow-[0_0_8px_rgba(234,179,8,0.4)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+                </svg>
                 <span class="font-bold text-sm tracking-widest text-white">SILENT<span class="text-primary">HUB</span></span>
             </div>
             <button id="close-mobile-menu" class="lg:hidden ml-auto text-textMuted hover:text-white">
@@ -88,287 +69,202 @@
         </div>
 
         <!-- Buscador -->
-        <div class="p-4 border-b border-border/50">
+        <div class="p-4 border-b border-border">
             <div class="relative group">
                 <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-textMuted group-focus-within:text-primary transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                <input type="text" id="global-search" placeholder="Buscar en el catálogo..." class="w-full bg-surface hover:bg-surfaceHover focus:bg-surface border border-border focus:border-primary/50 rounded-lg pl-10 pr-4 py-2.5 text-sm text-white placeholder-textMuted outline-none transition-all shadow-sm">
+                <input type="text" id="global-search" placeholder="Buscar módulos..." class="w-full bg-surfaceHover border border-border focus:border-primary/50 rounded-lg pl-10 pr-4 py-2.5 text-sm text-white placeholder-textMuted outline-none transition-all">
             </div>
         </div>
 
-        <!-- Menú -->
+        <!-- Menú de Navegación -->
         <div class="flex-1 overflow-y-auto px-3 py-4 space-y-1">
-            <p class="px-3 text-[10px] font-bold uppercase tracking-wider text-textMuted mb-2">General</p>
-            <button onclick="navigateTo('home')" class="nav-item active w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-textMuted hover:text-white hover:bg-white/5">
+            <p class="px-3 text-[10px] font-bold uppercase tracking-wider text-textMuted mb-2">Sistema</p>
+            <button onclick="navigateTo('home')" class="nav-item active w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-textMuted hover:text-white hover:bg-surfaceHover">
                 <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-                Inicio
+                Visión General
             </button>
-            <button onclick="navigateTo('dashboard')" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-textMuted hover:text-white hover:bg-white/5">
+            <button onclick="navigateTo('dashboard')" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-textMuted hover:text-white hover:bg-surfaceHover">
                 <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
-                Dashboard
+                Telemetría
             </button>
 
-            <p class="px-3 text-[10px] font-bold uppercase tracking-wider text-textMuted mt-6 mb-2">Repositorio Nube</p>
+            <p class="px-3 text-[10px] font-bold uppercase tracking-wider text-textMuted mt-6 mb-2">Repositorio</p>
             <div id="dynamic-sidebar-categories" class="space-y-1">
-                <!-- Generado por JS -->
+                <!-- Directorios inyectados por app.js -->
             </div>
         </div>
         
-        <!-- User Badge -->
-        <div class="p-4 border-t border-border mt-auto">
-            <div class="flex items-center gap-3 p-2 rounded-lg bg-surface border border-border">
-                <img src="https://i.postimg.cc/qMpyYTcK/Synergy-Team.png" alt="Silent" class="w-8 h-8 rounded-md object-cover border border-yellow-500/30">
+        <!-- Badge Autoridad -->
+        <div class="p-4 border-t border-border mt-auto bg-background">
+            <div class="flex items-center gap-3 p-3 rounded-lg border border-border bg-surfaceHover/50">
+                <div class="w-8 h-8 rounded-md bg-black border border-primary/30 flex items-center justify-center">
+                    <svg class="w-5 h-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+                </div>
                 <div class="flex flex-col">
-                    <span class="text-xs font-bold text-white">Silent ⚡</span>
-                    <span class="text-[10px] text-yellow-500 font-mono tracking-widest uppercase">System Owner</span>
+                    <span class="text-xs font-bold text-white tracking-wide">Silent</span>
+                    <span class="text-[9px] text-primary font-mono tracking-widest uppercase">System Owner</span>
                 </div>
             </div>
         </div>
     </aside>
 
-    <!-- Overlay Mobile -->
-    <div id="mobile-overlay" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-30 hidden lg:hidden"></div>
+    <div id="mobile-overlay" class="fixed inset-0 bg-black/90 backdrop-blur-sm z-30 hidden lg:hidden"></div>
 
-    <!-- Contenido Principal -->
-    <main class="flex-1 flex flex-col h-screen overflow-hidden relative z-10">
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col h-screen overflow-hidden relative z-10 bg-background">
         
-        <!-- Header Superior -->
-        <header class="h-20 flex items-center justify-between px-6 lg:px-10 border-b border-border bg-black/20 backdrop-blur-md">
+        <header class="h-20 flex items-center justify-between px-6 lg:px-10 border-b border-border">
             <button id="open-mobile-menu" class="lg:hidden text-textMuted hover:text-white">
                 <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
             </button>
             
-            <div class="hidden lg:flex items-center gap-2 text-sm text-textMuted font-mono">
-                <span id="breadcrumb-path">~ / root / inicio</span>
+            <div class="hidden lg:flex items-center gap-2 text-xs text-textMuted font-mono uppercase tracking-wider">
+                <span id="breadcrumb-path">~/root/vision_general</span>
             </div>
 
             <div class="flex items-center gap-4 ml-auto">
-                <a href="Aun no disponible" target="_blank" class="flex items-center gap-2 text-xs font-medium text-textMuted hover:text-white transition-colors bg-surface hover:bg-surfaceHover border border-border px-3 py-1.5 rounded-md">
-                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
-                    Soporte
-                </a>
-                <div class="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.5)] animate-pulse" title="Sistemas Operativos"></div>
+                <div class="flex items-center gap-2">
+                    <div class="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.5)] animate-pulse"></div>
+                    <span class="text-xs font-mono text-textMuted">CDN Activa</span>
+                </div>
             </div>
         </header>
 
-        <!-- Área de Vistas (SPA) -->
         <div class="flex-1 overflow-y-auto px-6 py-10 lg:px-12 pb-24 scroll-smooth">
             
-            <!-- VISTA 1: INICIO -->
+            <!-- VISTA: INICIO -->
             <div id="view-home" class="view-section animate-fade-in max-w-5xl mx-auto">
                 <div class="flex flex-col items-center text-center mt-10">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/10 text-primary text-xs font-semibold mb-6 animate-slide-up">
-                        <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
-                        Infraestructura Cloud Activa
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/20 bg-primary/10 text-primary text-[10px] font-mono uppercase tracking-widest mb-6 animate-slide-up">
+                        Protocolo de Red Establecido
                     </div>
                     
                     <h1 class="text-5xl lg:text-7xl font-bold tracking-tighter mb-6 animate-slide-up" style="animation-delay: 0.1s;">
-                        Despliega Scripts a la <br>
-                        <span class="bg-clip-text text-transparent bg-gradient-to-r from-primary via-secondary to-primary bg-[length:200%_auto] animate-pulse-glow">Velocidad de la Luz</span>
+                        Despliegue de Código <br>
+                        <span class="text-white">en Tiempo Real.</span>
                     </h1>
                     
                     <p class="text-textMuted text-lg max-w-2xl mb-10 animate-slide-up" style="animation-delay: 0.2s;">
-                        Plataforma de nivel empresarial para ejecución, almacenamiento y despliegue de scripts. Arquitectura escalable, latencia cero y protección avanzada para desarrolladores exigentes.
+                        Infraestructura de nivel empresarial diseñada para la distribución, ejecución y gestión de scripts. Operaciones de latencia cero para desarrolladores de alto rendimiento.
                     </p>
-                    
-                    <div class="flex gap-4 animate-slide-up" style="animation-delay: 0.3s;">
-                        <button onclick="navigateTo('dashboard')" class="px-6 py-3 rounded-lg bg-white text-black font-semibold hover:bg-gray-200 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.1)]">
-                            Acceder al Dashboard
-                        </button>
-                        <button onclick="document.getElementById('global-search').focus()" class="px-6 py-3 rounded-lg bg-surface border border-border text-white font-medium hover:bg-surfaceHover transition-colors">
-                            Explorar Catálogo
-                        </button>
-                    </div>
                 </div>
 
-                <div class="grid md:grid-cols-3 gap-6 mt-24 animate-slide-up" style="animation-delay: 0.5s;">
+                <div class="grid md:grid-cols-3 gap-6 mt-20 animate-slide-up" style="animation-delay: 0.4s;">
                     <div class="spotlight-card p-6">
-                        <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-4 border border-primary/20">
-                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                        <div class="w-8 h-8 flex items-center text-white mb-4">
+                            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
                         </div>
-                        <h3 class="text-lg font-semibold text-white mb-2">Ejecución Instantánea</h3>
-                        <p class="text-sm text-textMuted leading-relaxed">Infraestructura optimizada que garantiza la inyección de código sin retrasos ni intermediarios.</p>
+                        <h3 class="text-base font-semibold text-white mb-2">Inyección Directa</h3>
+                        <p class="text-sm text-textMuted leading-relaxed">Arquitectura optimizada que compila e inyecta rutinas en el cliente sin intermediarios.</p>
                     </div>
                     <div class="spotlight-card p-6">
-                        <div class="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center text-secondary mb-4 border border-secondary/20">
-                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        <div class="w-8 h-8 flex items-center text-white mb-4">
+                            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                         </div>
-                        <h3 class="text-lg font-semibold text-white mb-2">Seguridad Enterprise</h3>
-                        <p class="text-sm text-textMuted leading-relaxed">Filtros de revisión manual y protección de cuentas integrada. Solo código limpio y verificado.</p>
+                        <h3 class="text-base font-semibold text-white mb-2">Integridad Verificada</h3>
+                        <p class="text-sm text-textMuted leading-relaxed">Código fuente ofuscado y protegido mediante protocolos de seguridad estrictos.</p>
                     </div>
                     <div class="spotlight-card p-6">
-                        <div class="w-10 h-10 rounded-lg bg-green-500/10 flex items-center justify-center text-green-500 mb-4 border border-green-500/20">
-                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                        <div class="w-8 h-8 flex items-center text-white mb-4">
+                            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
                         </div>
-                        <h3 class="text-lg font-semibold text-white mb-2">Sync en la Nube</h3>
-                        <p class="text-sm text-textMuted leading-relaxed">Conexión directa con repositorios de GitHub. Los scripts se actualizan en tiempo real.</p>
+                        <h3 class="text-base font-semibold text-white mb-2">Nodos Globales</h3>
+                        <p class="text-sm text-textMuted leading-relaxed">Distribución automatizada a través del ecosistema edge de Vercel y repositorios seguros.</p>
                     </div>
                 </div>
             </div>
 
-            <!-- VISTA 2: DASHBOARD PRO (BENTO GRID) -->
+            <!-- VISTA: DASHBOARD -->
             <div id="view-dashboard" class="view-section hidden animate-fade-in max-w-7xl mx-auto">
                 <div class="mb-8 border-b border-border pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
                     <div>
-                        <h2 class="text-3xl font-bold tracking-tight text-white mb-2">Centro de <span class="text-primary">Control</span></h2>
-                        <p class="text-textMuted text-sm">Monitoreo de telemetría, base de datos y nodos de ejecución en tiempo real.</p>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <span class="flex items-center gap-2 text-xs font-mono bg-surface border border-border px-3 py-1.5 rounded-md">
-                            <span class="relative flex h-2 w-2">
-                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                                <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                            </span>
-                            API: ONLINE
-                        </span>
+                        <h2 class="text-2xl font-bold tracking-tight text-white mb-1">Telemetría del Sistema</h2>
+                        <p class="text-textMuted text-sm">Monitoreo de tráfico, respuesta de ejecutores y registros de consola.</p>
                     </div>
                 </div>
                 
-                <!-- BENTO GRID -->
                 <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                    
-                    <!-- Tarjeta 1: Estado Principal (Ocupa 2 columnas) -->
-                    <div class="spotlight-card col-span-1 md:col-span-2 p-6 flex flex-col relative overflow-hidden group">
-                        <div class="absolute -right-20 -top-20 w-64 h-64 bg-primary/10 rounded-full blur-[80px] transition-all group-hover:bg-primary/20"></div>
-                        
-                        <div class="flex justify-between items-start z-10 mb-8">
-                            <div>
-                                <h3 class="text-lg font-bold text-white mb-1">Estado de Infraestructura</h3>
-                                <p class="text-xs text-textMuted">Nodos alojados en Vercel & Render</p>
+                    <div class="spotlight-card col-span-1 md:col-span-2 p-6 flex flex-col">
+                        <h3 class="text-sm font-semibold text-white mb-6">Métricas de Red</h3>
+                        <div class="grid grid-cols-3 gap-4 mt-auto">
+                            <div class="border border-border rounded-lg p-4 bg-background">
+                                <div class="text-[10px] text-textMuted uppercase tracking-wider mb-2">Peticiones</div>
+                                <div class="font-mono text-white font-bold text-xl">12.4<span class="text-xs text-textMuted ml-1">k</span></div>
                             </div>
-                            <div class="w-12 h-12 rounded-full border border-primary/30 flex items-center justify-center relative">
-                                <div class="absolute inset-0 rounded-full border border-primary/50 animate-ping opacity-20"></div>
-                                <svg class="w-5 h-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                            <div class="border border-border rounded-lg p-4 bg-background">
+                                <div class="text-[10px] text-textMuted uppercase tracking-wider mb-2">Latencia API</div>
+                                <div class="font-mono text-white font-bold text-xl">14<span class="text-xs text-textMuted ml-1">ms</span></div>
                             </div>
-                        </div>
-
-                        <div class="grid grid-cols-3 gap-4 z-10 mt-auto">
-                            <div class="bg-black/40 border border-border rounded-lg p-3">
-                                <div class="text-[10px] text-textMuted uppercase tracking-wider mb-1">Latencia</div>
-                                <div class="font-mono text-white font-bold text-lg">14<span class="text-xs text-primary ml-1">ms</span></div>
-                            </div>
-                            <div class="bg-black/40 border border-border rounded-lg p-3">
-                                <div class="text-[10px] text-textMuted uppercase tracking-wider mb-1">Uptime</div>
-                                <div class="font-mono text-white font-bold text-lg text-green-400">99.9%</div>
-                            </div>
-                            <div class="bg-black/40 border border-border rounded-lg p-3">
-                                <div class="text-[10px] text-textMuted uppercase tracking-wider mb-1">Carga</div>
-                                <div class="font-mono text-white font-bold text-lg">24<span class="text-xs text-secondary ml-1">%</span></div>
+                            <div class="border border-border rounded-lg p-4 bg-background">
+                                <div class="text-[10px] text-textMuted uppercase tracking-wider mb-2">Uptime</div>
+                                <div class="font-mono text-white font-bold text-xl text-green-400">99.9%</div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Tarjeta 2: Gráfico de Tráfico SVG (Ocupa 2 columnas) -->
-                    <div class="spotlight-card col-span-1 md:col-span-2 lg:col-span-2 p-6 flex flex-col relative">
-                        <div class="flex justify-between items-center mb-6">
-                            <h3 class="text-sm font-bold text-white">Peticiones de Red (24h)</h3>
-                            <span class="text-xs font-mono text-green-400 bg-green-400/10 px-2 py-1 rounded">+12.4%</span>
-                        </div>
-                        <div class="flex-1 w-full h-full min-h-[120px] relative flex items-end">
-                            <!-- Gráfico SVG Animado -->
-                            <svg class="w-full h-24 overflow-visible" viewBox="0 0 400 100" preserveAspectRatio="none">
-                                <defs>
-                                    <linearGradient id="line-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                                        <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.2"/>
-                                        <stop offset="50%" stop-color="#3b82f6"/>
-                                        <stop offset="100%" stop-color="#a855f7"/>
-                                    </linearGradient>
-                                    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-                                        <feGaussianBlur stdDeviation="4" result="blur" />
-                                        <feComposite in="SourceGraphic" in2="blur" operator="over"/>
-                                    </filter>
-                                </defs>
-                                <path class="animate-draw-line" d="M0,80 C40,70 80,90 120,50 C160,10 200,60 240,40 C280,20 320,70 360,30 L400,20" fill="none" stroke="url(#line-gradient)" stroke-width="3" filter="url(#glow)"/>
-                                <path d="M0,80 C40,70 80,90 120,50 C160,10 200,60 240,40 C280,20 320,70 360,30 L400,20 L400,100 L0,100 Z" fill="url(#line-gradient)" opacity="0.1"/>
-                            </svg>
-                        </div>
-                    </div>
-
-                    <!-- Tarjeta 3: Nodos de Base de Datos -->
-                    <div class="spotlight-card col-span-1 md:col-span-1 lg:col-span-1 p-6 flex flex-col">
-                        <h3 class="text-sm font-bold text-white mb-6">Nodos de Datos</h3>
+                    <div class="spotlight-card col-span-1 md:col-span-1 lg:col-span-2 p-6 flex flex-col">
+                        <h3 class="text-sm font-semibold text-white mb-6">Salud de Nodos</h3>
                         <div class="space-y-4 flex-1">
-                            <div class="flex items-center gap-3">
-                                <div class="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_#22c55e]"></div>
-                                <div class="flex-1">
-                                    <div class="text-xs text-white">Supabase DB</div>
-                                    <div class="text-[10px] text-textMuted font-mono">eu-west-1</div>
+                            <div class="flex items-center justify-between border-b border-border pb-3">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-green-500"></div>
+                                    <span class="text-xs text-white">Vercel Edge Network</span>
                                 </div>
-                                <div class="text-xs font-mono text-textMuted">4ms</div>
+                                <span class="text-[10px] font-mono text-textMuted">Ruteado</span>
                             </div>
-                            <div class="flex items-center gap-3">
-                                <div class="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_#22c55e]"></div>
-                                <div class="flex-1">
-                                    <div class="text-xs text-white">GitHub CDN</div>
-                                    <div class="text-[10px] text-textMuted font-mono">global-edge</div>
+                            <div class="flex items-center justify-between border-b border-border pb-3">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-green-500"></div>
+                                    <span class="text-xs text-white">GitHub CDN Repository</span>
                                 </div>
-                                <div class="text-xs font-mono text-textMuted">12ms</div>
+                                <span class="text-[10px] font-mono text-textMuted">Estable</span>
                             </div>
-                            <div class="flex items-center gap-3">
-                                <div class="w-2 h-2 rounded-full bg-yellow-500 shadow-[0_0_8px_#eab308]"></div>
-                                <div class="flex-1">
-                                    <div class="text-xs text-white">Ejecutores API</div>
-                                    <div class="text-[10px] text-textMuted font-mono">us-east</div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-primary"></div>
+                                    <span class="text-xs text-white">Ejecutores Cliente</span>
                                 </div>
-                                <div class="text-xs font-mono text-yellow-500">Sync...</div>
+                                <span class="text-[10px] font-mono text-primary">Sincronizando</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Tarjeta 4: Terminal de Eventos en Vivo (Ocupa 3 columnas) -->
-                    <div class="spotlight-card col-span-1 md:col-span-2 lg:col-span-3 flex flex-col relative overflow-hidden h-64">
-                        <div class="bg-black/60 border-b border-border px-4 py-2 flex items-center gap-2">
-                            <div class="flex gap-1.5">
-                                <div class="w-2.5 h-2.5 rounded-full bg-red-500/80"></div>
-                                <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></div>
-                                <div class="w-2.5 h-2.5 rounded-full bg-green-500/80"></div>
-                            </div>
-                            <span class="text-[10px] font-mono text-textMuted ml-2">silenthub-terminal ~ root</span>
+                    <!-- Terminal -->
+                    <div class="spotlight-card col-span-1 md:col-span-3 lg:col-span-4 flex flex-col overflow-hidden h-64 border border-border">
+                        <div class="bg-surfaceHover border-b border-border px-4 py-2 flex items-center gap-2">
+                            <span class="text-[10px] font-mono text-textMuted">root@silenthub:~# tail -f /var/log/system.log</span>
                         </div>
-                        <div class="p-4 flex-1 overflow-y-auto thin-scrollbar font-mono text-[11px] bg-[#050505] relative scanline-container" id="terminal-logs">
-                            <!-- Logs generados por JS -->
-                        </div>
+                        <div class="p-4 flex-1 overflow-y-auto thin-scrollbar font-mono text-[11px] bg-background" id="terminal-logs"></div>
                     </div>
                 </div>
             </div>
 
-            <!-- VISTA 3: CATÁLOGO DINÁMICO DE JUEGOS -->
+            <!-- VISTA: CATALOGO -->
             <div id="view-catalog" class="view-section hidden animate-fade-in max-w-6xl mx-auto">
-                <div class="mb-10 border-b border-border pb-6 flex justify-between items-end">
+                <div class="mb-10 border-b border-border pb-4 flex justify-between items-end">
                     <div>
-                        <div class="text-xs font-mono text-primary mb-2 uppercase tracking-widest" id="catalog-category">Repositorio</div>
-                        <h2 class="text-3xl font-bold tracking-tight text-white" id="catalog-title">Título del Juego</h2>
+                        <div class="text-[10px] font-mono text-primary mb-1 uppercase tracking-widest" id="catalog-category">Directorio</div>
+                        <h2 class="text-2xl font-bold tracking-tight text-white" id="catalog-title">Módulo</h2>
                     </div>
-                    <span class="text-xs text-textMuted font-mono bg-surface border border-border px-2 py-1 rounded">Read-Only</span>
                 </div>
-                
-                <div class="grid lg:grid-cols-2 gap-6" id="scripts-grid">
-                    <!-- Cards inyectadas por JS -->
-                </div>
+                <div class="grid lg:grid-cols-2 gap-4" id="scripts-grid"></div>
             </div>
 
-            <!-- VISTA 4: RESULTADOS DE BÚSQUEDA -->
+            <!-- VISTA: BÚSQUEDA -->
             <div id="view-search" class="view-section hidden animate-fade-in max-w-6xl mx-auto">
-                <div class="mb-10 border-b border-border pb-6">
-                    <h2 class="text-2xl font-bold text-white mb-2">Resultados de búsqueda</h2>
-                    <p class="text-textMuted text-sm">Mostrando coincidencias para: <span id="search-query-display" class="text-primary font-mono bg-primary/10 px-2 py-0.5 rounded"></span></p>
+                <div class="mb-10 border-b border-border pb-4">
+                    <h2 class="text-xl font-bold text-white mb-1">Resultados de consulta</h2>
+                    <p class="text-textMuted text-xs">Query: <span id="search-query-display" class="text-primary font-mono bg-primary/10 px-1 rounded"></span></p>
                 </div>
-                <div class="grid lg:grid-cols-2 gap-6" id="search-results-grid">
-                    <!-- Resultados inyectados por JS -->
-                </div>
+                <div class="grid lg:grid-cols-2 gap-4" id="search-results-grid"></div>
             </div>
 
         </div>
     </main>
 
-    <!-- Toast Notification (Stripe Style) -->
-    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] flex items-center gap-3 bg-surface border border-border shadow-2xl rounded-lg px-4 py-3">
-        <div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center text-green-500">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
-        </div>
-        <div class="flex flex-col">
-            <span class="text-sm font-semibold text-white">Copiado al portapapeles</span>
-            <span class="text-[11px] text-textMuted font-mono">El script está listo para inyectarse</span>
-        </div>
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-3 bg-background border border-border shadow-2xl rounded-lg px-4 py-3">
+        <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+        <span class="text-xs font-mono text-white">Payload copiado al portapapeles.</span>
     </div>
 </body>
 </html>

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   SilentHub Enterprise - Estilos Base y Utilidades
+   SilentHub Enterprise - CSS Engine
    ========================================================================== */
 
 body {
@@ -9,27 +9,27 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* Scrollbar Premium */
-::-webkit-scrollbar { width: 8px; height: 8px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #121212; border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.15); }
+/* Scrollbar Clean */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #000000; }
+::-webkit-scrollbar-thumb { background: #1a1a1a; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #333333; }
 
-/* Grid Background Vercel Style */
+/* Grid Background */
 .bg-grid {
-    background-size: 40px 40px;
-    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                      linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-    mask-image: radial-gradient(ellipse 80% 50% at 50% 0%, black 40%, transparent 100%);
-    -webkit-mask-image: radial-gradient(ellipse 80% 50% at 50% 0%, black 40%, transparent 100%);
+    background-size: 30px 30px;
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                      linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    mask-image: radial-gradient(ellipse 80% 50% at 50% 0%, black 30%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 50% at 50% 0%, black 30%, transparent 100%);
 }
 
-/* Spotlight Effect para Tarjetas (Framer/Linear Style) */
+/* Spotlight Effect */
 .spotlight-card {
     position: relative;
-    background: #0A0A0A;
+    background: #000000;
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 12px;
+    border-radius: 8px;
     overflow: hidden;
     transition: border-color 0.3s ease;
 }
@@ -37,7 +37,7 @@ body {
     content: "";
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(255,255,255,0.06), transparent 40%);
+    background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(255,255,255,0.04), transparent 40%);
     opacity: 0;
     transition: opacity 0.3s ease;
     pointer-events: none;
@@ -46,84 +46,29 @@ body {
 .spotlight-card:hover::before { opacity: 1; }
 .spotlight-card:hover { border-color: rgba(255, 255, 255, 0.15); }
 
-/* Navegación Activa */
-.nav-item {
-    transition: all 0.2s ease;
-}
+/* Navigation */
+.nav-item { transition: background 0.2s ease, color 0.2s ease; }
 .nav-item.active {
-    background: rgba(255,255,255,0.05);
+    background: rgba(255,255,255,0.03);
     color: #ffffff;
-    border-left: 2px solid #3b82f6;
+    border-left: 2px solid #eab308; /* Primary Amber */
 }
 
-/* Bloques de Código */
+/* Code Blocks */
 .code-block {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     tab-size: 4;
 }
 
-/* Loader para botones */
-.loader {
-    border: 2px solid transparent;
-    border-top-color: #3b82f6;
-    border-radius: 50%;
-    width: 16px;
-    height: 16px;
-    animation: spin 1s linear infinite;
-}
-@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-/* ==========================================================================
-   Efectos Pro Dashboard (Animaciones SVG y Terminal)
-   ========================================================================== */
-
-/* Animación de la línea del gráfico SVG */
-.animate-draw-line {
-    stroke-dasharray: 1000;
-    stroke-dashoffset: 1000;
-    animation: drawLine 3s ease-out forwards;
-}
-
-@keyframes drawLine {
-    to {
-        stroke-dashoffset: 0;
-    }
-}
-
-/* Efecto visual de escaneo de monitor para la terminal */
-.scanline-container::after {
-    content: " ";
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background: linear-gradient(
-        to bottom,
-        rgba(255,255,255,0),
-        rgba(255,255,255,0) 50%,
-        rgba(0,0,0,0.1) 50%,
-        rgba(0,0,0,0.1)
-    );
-    background-size: 100% 4px;
-    pointer-events: none;
-    z-index: 10;
-}
-
-/* Tipografía de la terminal */
-.log-entry {
-    margin-bottom: 6px;
-    opacity: 0;
-    animation: logFadeIn 0.3s ease forwards;
-}
-.log-time { color: #888; margin-right: 8px; }
-.log-info { color: #3b82f6; }
+/* Terminal Logs */
+.log-entry { margin-bottom: 4px; opacity: 0; animation: logFadeIn 0.2s ease forwards; }
+.log-time { color: #555; margin-right: 8px; }
+.log-info { color: #a1a1aa; }
 .log-success { color: #22c55e; }
 .log-warn { color: #eab308; }
 
 @keyframes logFadeIn {
-    from { opacity: 0; transform: translateX(-5px); }
-    to { opacity: 1; transform: translateX(0); }
+    from { opacity: 0; transform: translateY(2px); }
+    to { opacity: 1; transform: translateY(0); }
 }
