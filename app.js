@@ -1,5 +1,4 @@
 const scriptDatabase = [
-    // --- ⚡️ CARPETA: SILENTHUB (Siempre arriba) ---
     {
         id: "silenthub-oficial",
         title: "SilentHub",
@@ -11,8 +10,7 @@ const scriptDatabase = [
             }
         ]
     },
-    
-    // --- 📁 CARPETA: OTHERS ---
+
     {
         id: "others",
         title: "Others",
@@ -25,7 +23,6 @@ const scriptDatabase = [
         ]
     },
 
-    // --- 🔧 CARPETA: UTILITIES ---
     {
         id: "utilities-tools",
         title: "Utilities",
@@ -273,12 +270,11 @@ function setupEventListeners() {
 
 document.addEventListener('DOMContentLoaded', initSystem);
 
-// --- SISTEMA DE TERMINAL EN VIVO (DASHBOARD) ---
 function initTerminalSim() {
     const terminal = document.getElementById('terminal-logs');
     if (!terminal) return;
     
-    terminal.innerHTML = ''; // Limpiar
+    terminal.innerHTML = '';
     
     const logs = [
         { type: 'info', msg: 'Iniciando conexión con Supabase Cluster...' },
@@ -293,12 +289,11 @@ function initTerminalSim() {
     let delay = 0;
     logs.forEach((log, index) => {
         setTimeout(() => {
-            if(!document.getElementById('terminal-logs')) return; // Evitar error si cambia de vista
+            if(!document.getElementById('terminal-logs')) return;
             
             const div = document.createElement('div');
             div.className = 'log-entry';
             
-            // Generar hora actual simulada
             const now = new Date();
             const timeStr = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
             
@@ -308,12 +303,10 @@ function initTerminalSim() {
             div.innerHTML = `<span class="log-time">${timeStr}</span> <span class="${colorClass}">${prefix}</span> <span class="text-gray-300">${log.msg}</span>`;
             terminal.appendChild(div);
             
-            // Auto scroll abajo
             terminal.scrollTop = terminal.scrollHeight;
             
         }, delay);
         
-        // Randomizar tiempo de aparición entre logs para mayor realismo (entre 300ms y 1200ms)
         delay += Math.floor(Math.random() * 900) + 300; 
     });
 }
@@ -326,13 +319,13 @@ function setNetworkStatus(isOnline) {
     if (!container || !dot || !text) return;
     
     if (isOnline) {
-        // Estado VERDE (Activo)
+
         container.className = 'relative flex items-center gap-2 px-3 py-1 rounded-full border border-green-500/40 bg-green-500/10 shadow-[0_0_15px_rgba(34,197,94,0.15)] transition-colors duration-500 overflow-hidden';
         dot.className = 'w-1.5 h-1.5 rounded-full bg-green-500 shadow-[0_0_10px_#22c55e] animate-pulse relative z-10 transition-colors duration-500';
         text.className = 'text-[9px] font-mono text-green-400 uppercase tracking-wider hidden sm:inline relative z-10 transition-colors duration-500';
         text.innerText = 'API: Online';
     } else {
-        // Estado ROJO (Inactivo)
+
         container.className = 'relative flex items-center gap-2 px-3 py-1 rounded-full border border-red-500/40 bg-red-500/10 shadow-[0_0_15px_rgba(239,68,68,0.15)] transition-colors duration-500 overflow-hidden';
         dot.className = 'w-1.5 h-1.5 rounded-full bg-red-500 shadow-[0_0_10px_#ef4444] animate-pulse relative z-10 transition-colors duration-500';
         text.className = 'text-[9px] font-mono text-red-400 uppercase tracking-wider hidden sm:inline relative z-10 transition-colors duration-500';
@@ -340,5 +333,4 @@ function setNetworkStatus(isOnline) {
     }
 }
 
-// Hacemos la función global para que puedas llamarla desde donde quieras
 window.setNetworkStatus = setNetworkStatus;
