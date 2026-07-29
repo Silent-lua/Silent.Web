@@ -1,9 +1,4 @@
-/* ==========================================================================
-   SilentHub Enterprise - Mobile Optimized CSS
-   ========================================================================== */
-
 * {
-    /* Elimina el cuadro azul en Android al tocar botones */
     -webkit-tap-highlight-color: transparent;
 }
 
@@ -14,18 +9,15 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* Áreas Seguras (Safe Areas) para el notch de iPhone */
 .pt-safe { padding-top: env(safe-area-inset-top); }
 .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
 .bottom-safe { bottom: env(safe-area-inset-bottom); }
 
-/* Scrollbar Custom Dorada */
 .custom-scrollbar::-webkit-scrollbar { width: 4px; height: 4px; }
 .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
 .custom-scrollbar::-webkit-scrollbar-thumb { background: #1f1f1f; border-radius: 4px; }
 .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(234, 179, 8, 0.5); }
 
-/* Grid Background */
 .bg-grid {
     background-size: 40px 40px;
     background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
@@ -34,7 +26,6 @@ body {
     -webkit-mask-image: radial-gradient(ellipse 80% 50% at 50% 0%, black 20%, transparent 100%);
 }
 
-/* Spotlight Effect Gold (Desactivado su "Before" en móvil para rendimiento, activo en PC) */
 .spotlight-card {
     position: relative;
     background: #000000;
@@ -63,7 +54,6 @@ body {
     }
 }
 
-/* Navigation Accent */
 .nav-item { transition: all 0.2s ease; }
 .nav-item.active {
     background: rgba(234, 179, 8, 0.05);
@@ -71,13 +61,11 @@ body {
     border-left: 2px solid #eab308;
 }
 
-/* Code Blocks */
 .code-block {
     font-family: 'JetBrains Mono', monospace;
     tab-size: 4;
 }
 
-/* Terminal Logs con Animación Staggered */
 .log-entry { margin-bottom: 6px; opacity: 0; animation: logFadeIn 0.3s ease forwards; }
 .log-time { color: #555; margin-right: 8px; }
 .log-info { color: #a1a1aa; }
@@ -89,7 +77,6 @@ body {
     to { opacity: 1; transform: translateX(0); }
 }
 
-/* Scanline Effect para Terminal */
 .terminal-scanline::after {
     content: " ";
     display: block;
@@ -100,6 +87,10 @@ body {
     pointer-events: none;
     z-index: 10;
 }
+
+/* ==========================================================================
+   Efectos Animados Avanzados (Pulsos y Escáner Láser en Gráfica)
+   ========================================================================== */
 
 /* Latido del icono SVG (Centro de Control) */
 @keyframes heartbeat {
@@ -113,29 +104,33 @@ body {
     animation: heartbeat 2.5s ease-in-out infinite; 
 }
 
-/* Dibujado infinito de la línea interna del icono */
+/* Dibujado infinito de la línea interna del icono (De Izquierda a Derecha) */
 @keyframes dashPulse {
-    0% { stroke-dashoffset: 100; opacity: 0.2; }
-    50% { stroke-dashoffset: 0; opacity: 1; }
-    100% { stroke-dashoffset: -100; opacity: 0.2; }
+    0% { stroke-dashoffset: 100; opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { stroke-dashoffset: -100; opacity: 0; }
 }
 .animate-dash { 
-    animation: dashPulse 2.5s ease-in-out infinite; 
+    stroke-dasharray: 60 100; 
+    animation: dashPulse 2.5s linear infinite; 
 }
 
-/* Escáner Láser Horizontal (Arriba del Gráfico SVG) */
-@keyframes scanX {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(300%); }
+/* Escáner Láser que viaja por la curva dorada de la gráfica */
+.animate-traveling-line {
+    stroke-dasharray: 150 1000;
+    stroke-linecap: round;
+    animation: travelLine 2.5s linear infinite;
 }
-.animate-scan-x { 
-    animation: scanX 3s linear infinite; 
+@keyframes travelLine {
+    0% { stroke-dashoffset: 150; }
+    100% { stroke-dashoffset: -600; }
 }
 
-/* Pulso rápido para el contenedor del Indicador Superior */
+/* Pulso rápido para el contenedor de Red Segura */
 @keyframes pulseFast {
-    0%, 100% { opacity: 0.1; }
-    50% { opacity: 0.5; }
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 0.6; }
 }
 .animate-pulse-fast { 
     animation: pulseFast 1.5s ease-in-out infinite; 

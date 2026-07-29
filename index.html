@@ -35,7 +35,7 @@
                         'fade-in': 'fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
                         'slide-up': 'slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
                         'pulse-gold': 'pulseGold 6s ease-in-out infinite',
-                        'gradient-x': 'gradientX 3s ease infinite',
+                        'gradient-x': 'gradientX 4s ease infinite',
                         'float': 'float 6s ease-in-out infinite',
                     },
                     keyframes: {
@@ -122,7 +122,7 @@
                 <span id="breadcrumb-path">~/root/vision_general</span>
             </div>
 
-            <!-- INDICADOR VERDE/ROJO DINÁMICO (MODIFICADO) -->
+            <!-- INDICADOR VERDE/ROJO DINÁMICO -->
             <div class="flex items-center gap-4 ml-auto">
                 <div id="network-status-container" class="relative flex items-center gap-2 px-3 py-1 rounded-full border border-green-500/40 bg-green-500/10 shadow-[0_0_15px_rgba(34,197,94,0.15)] transition-colors duration-500 overflow-hidden">
                     <div class="absolute inset-0 bg-green-500/10 animate-pulse-fast"></div>
@@ -152,7 +152,6 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 lg:mt-16 animate-slide-up" style="animation-delay: 0.4s;">
-                    <!-- Tarjetas de inicio... se mantienen igual -->
                     <div class="spotlight-card p-6 flex flex-col items-center text-center group">
                         <div class="w-12 h-12 rounded-full border border-primary/20 bg-primary/5 flex items-center justify-center text-primary mb-4 group-hover:scale-110 transition-transform duration-300">
                             <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
@@ -197,11 +196,12 @@
                                 <h3 class="text-lg font-bold text-white mb-1">Estado de Infraestructura</h3>
                                 <p class="text-xs text-textMuted">Nodos alojados en Vercel & Render</p>
                             </div>
-                            <!-- ICONO HEARTBEAT ANIMADO -->
+                            <!-- ICONO HEARTBEAT ANIMADO (AHORA VIAJA DE IZQ A DER) -->
                             <div class="w-12 h-12 rounded-full border border-primary/30 flex items-center justify-center relative shadow-[0_0_20px_rgba(234,179,8,0.15)] bg-background">
                                 <div class="absolute inset-0 rounded-full border border-primary/50 animate-ping opacity-20"></div>
                                 <svg class="w-5 h-5 text-primary animate-heartbeat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polyline class="animate-dash" stroke-dasharray="100" stroke-dashoffset="100" points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                                    <!-- Coordenadas invertidas para que el dibujo nazca en la izquierda y fluya a la derecha -->
+                                    <polyline class="animate-dash" points="2 12 6 12 9 3 15 21 18 12 22 12"/>
                                 </svg>
                             </div>
                         </div>
@@ -222,32 +222,33 @@
                         </div>
                     </div>
 
+                    <!-- TARJETA: GRÁFICO (CON LÁSER SOBRE LA LÍNEA DORADA) -->
                     <div class="spotlight-card col-span-1 md:col-span-2 lg:col-span-2 p-6 flex flex-col relative">
-                        <div class="flex justify-between items-center mb-4 z-10">
+                        <div class="flex justify-between items-center mb-6 z-10">
                             <h3 class="text-sm font-bold text-white">Peticiones de Red (24h)</h3>
                             <span class="text-xs font-mono text-green-400 bg-green-400/10 px-2 py-1 rounded">+12.4%</span>
                         </div>
 
-                        <!-- LÍNEA ESCÁNER LÁSER -->
-                        <div class="w-full h-[1px] bg-border relative overflow-hidden mb-4">
-                            <div class="absolute top-0 left-0 h-full w-1/3 bg-gradient-to-r from-transparent via-primary to-transparent animate-scan-x"></div>
-                        </div>
-
+                        <!-- Gráfico con Láser Viajero -->
                         <div class="flex-1 w-full h-full min-h-[120px] relative flex items-end">
                             <svg class="w-full h-24 overflow-visible" viewBox="0 0 400 100" preserveAspectRatio="none">
                                 <defs>
                                     <linearGradient id="line-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                                        <stop offset="0%" stop-color="#eab308" stop-opacity="0.2"/>
-                                        <stop offset="50%" stop-color="#eab308"/>
-                                        <stop offset="100%" stop-color="#fde047"/>
+                                        <stop offset="0%" stop-color="#eab308" stop-opacity="0"/>
+                                        <stop offset="50%" stop-color="#eab308" stop-opacity="1"/>
+                                        <stop offset="100%" stop-color="#fde047" stop-opacity="1"/>
                                     </linearGradient>
                                     <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
                                         <feGaussianBlur stdDeviation="4" result="blur" />
                                         <feComposite in="SourceGraphic" in2="blur" operator="over"/>
                                     </filter>
                                 </defs>
-                                <path class="animate-draw-line" d="M0,80 C40,70 80,90 120,50 C160,10 200,60 240,40 C280,20 320,70 360,30 L400,20" fill="none" stroke="url(#line-gradient)" stroke-width="3" filter="url(#glow)"/>
+                                <!-- Línea base estática (Fondo tenue) -->
+                                <path d="M0,80 C40,70 80,90 120,50 C160,10 200,60 240,40 C280,20 320,70 360,30 L400,20" fill="none" stroke="#eab308" stroke-width="2" opacity="0.2"/>
+                                <!-- Relleno inferior -->
                                 <path d="M0,80 C40,70 80,90 120,50 C160,10 200,60 240,40 C280,20 320,70 360,30 L400,20 L400,100 L0,100 Z" fill="url(#line-gradient)" opacity="0.1"/>
+                                <!-- Láser dinámico que recorre la línea -->
+                                <path class="animate-traveling-line" d="M0,80 C40,70 80,90 120,50 C160,10 200,60 240,40 C280,20 320,70 360,30 L400,20" fill="none" stroke="url(#line-gradient)" stroke-width="3" filter="url(#glow)"/>
                             </svg>
                         </div>
                     </div>
