@@ -60,6 +60,10 @@ function navigateTo(viewId, gameData = null) {
 
     closeMobileMenu();
     setTimeout(initSpotlightEffect, 50);
+    
+    if (viewId === 'dashboard') {
+        initTerminalSim();
+    }
 }
 
 function renderSidebar() {
@@ -248,3 +252,48 @@ function setupEventListeners() {
 }
 
 document.addEventListener('DOMContentLoaded', initSystem);
+
+// --- SISTEMA DE TERMINAL EN VIVO (DASHBOARD) ---
+function initTerminalSim() {
+    const terminal = document.getElementById('terminal-logs');
+    if (!terminal) return;
+    
+    terminal.innerHTML = ''; // Limpiar
+    
+    const logs = [
+        { type: 'info', msg: 'Iniciando conexión con Supabase Cluster...' },
+        { type: 'success', msg: 'Conexión exitosa. Latencia: 14ms' },
+        { type: 'info', msg: 'Sincronizando repositorios de GitHub...' },
+        { type: 'success', msg: 'Repositorios sincronizados. 4 juegos detectados.' },
+        { type: 'warn', msg: 'Buscando actualizaciones de ejecutores externos...' },
+        { type: 'success', msg: 'Rutas de API estables.' },
+        { type: 'info', msg: 'Esperando nuevas peticiones de usuario...' }
+    ];
+
+    let delay = 0;
+    logs.forEach((log, index) => {
+        setTimeout(() => {
+            if(!document.getElementById('terminal-logs')) return; // Evitar error si cambia de vista
+            
+            const div = document.createElement('div');
+            div.className = 'log-entry';
+            
+            // Generar hora actual simulada
+            const now = new Date();
+            const timeStr = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
+            
+            let colorClass = log.type === 'success' ? 'log-success' : log.type === 'warn' ? 'log-warn' : 'log-info';
+            let prefix = log.type === 'success' ? '[200 OK]' : log.type === 'warn' ? '[WARN]' : '[INFO]';
+            
+            div.innerHTML = `<span class="log-time">${timeStr}</span> <span class="${colorClass}">${prefix}</span> <span class="text-gray-300">${log.msg}</span>`;
+            terminal.appendChild(div);
+            
+            // Auto scroll abajo
+            terminal.scrollTop = terminal.scrollHeight;
+            
+        }, delay);
+        
+        // Randomizar tiempo de aparición entre logs para mayor realismo (entre 300ms y 1200ms)
+        delay += Math.floor(Math.random() * 900) + 300; 
+    });
+}

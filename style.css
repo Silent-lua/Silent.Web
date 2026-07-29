@@ -73,3 +73,57 @@ body {
     animation: spin 1s linear infinite;
 }
 @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+/* ==========================================================================
+   Efectos Pro Dashboard (Animaciones SVG y Terminal)
+   ========================================================================== */
+
+/* Animación de la línea del gráfico SVG */
+.animate-draw-line {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: drawLine 3s ease-out forwards;
+}
+
+@keyframes drawLine {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+/* Efecto visual de escaneo de monitor para la terminal */
+.scanline-container::after {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0),
+        rgba(255,255,255,0) 50%,
+        rgba(0,0,0,0.1) 50%,
+        rgba(0,0,0,0.1)
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* Tipografía de la terminal */
+.log-entry {
+    margin-bottom: 6px;
+    opacity: 0;
+    animation: logFadeIn 0.3s ease forwards;
+}
+.log-time { color: #888; margin-right: 8px; }
+.log-info { color: #3b82f6; }
+.log-success { color: #22c55e; }
+.log-warn { color: #eab308; }
+
+@keyframes logFadeIn {
+    from { opacity: 0; transform: translateX(-5px); }
+    to { opacity: 1; transform: translateX(0); }
+}
