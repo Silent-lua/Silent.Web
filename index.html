@@ -1,488 +1,306 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SilentHub | Repositorio de Scripts</title>
-<!-- Icono de SilentHub -->
-<link rel="icon" href="https://i.postimg.cc/qMpyYTcK/Synergy-Team.png" type="image/jpeg">
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-tailwind.config = {
-    theme: {
-        extend: {
-            colors: {
-                slate: {
-                    50: '#f8fafc',
-                    300: '#cbd5e1',
-                    400: '#94a3b8',
-                    500: '#64748b',
-                    900: '#0f172a',
-                    950: '#030307',
-                },
-                amber: {
-                    50: '#fffbeb',
-                    100: '#fef3c7',
-                    200: '#fde68a',
-                    300: '#fcd34d',
-                    400: '#fbbf24',
-                    500: '#f59e0b',
-                    600: '#d97706',
-                    700: '#b45309',
-                    800: '#92400e',
-                    900: '#78350f',
-                    950: '#451a03',
-                },
-                yellow: {
-                    500: '#eab308',
-                    600: '#ca8a04',
-                    700: '#a16207',
-                }
-            },
-            animation: {
-                'fade-in-up': 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-                'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                'float': 'float 6s ease-in-out infinite',
-            },
-            keyframes: {
-                fadeInUp: {
-                    '0%': { opacity: '0', transform: 'translateY(20px)' },
-                    '100%': { opacity: '1', transform: 'translateY(0)' },
-                },
-                float: {
-                    '0%, 100%': { transform: 'translateY(0px)' },
-                    '50%': { transform: 'translateY(-10px)' }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SilentHub | Infraestructura de Scripts</title>
+    
+    <!-- Tipografía Premium -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS (Configuración Enterprise) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        background: '#000000',
+                        surface: '#0A0A0A',
+                        surfaceHover: '#121212',
+                        border: 'rgba(255, 255, 255, 0.08)',
+                        borderHover: 'rgba(255, 255, 255, 0.15)',
+                        primary: '#3b82f6', // Azul eléctrico
+                        secondary: '#a855f7', // Morado elegante
+                        textMuted: '#888888',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'slide-up': 'slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'pulse-glow': 'pulseGlow 4s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { opacity: '0.4' },
+                            '50%': { opacity: '0.8' },
+                        }
+                    }
                 }
             }
         }
-    }
-}
-</script>
+    </script>
+
+    <!-- ⚡ AQUÍ ENLAZAMOS EL CSS EXTERNO ⚡ -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- ⚡ AQUÍ ENLAZAMOS EL JAVASCRIPT EXTERNO ⚡ -->
+    <script src="app.js" defer></script>
 </head>
-<body class="relative min-h-screen overflow-x-hidden antialiased selection:bg-amber-500/30 selection:text-amber-200">
+<body class="min-h-screen flex overflow-hidden selection:bg-primary/30 selection:text-white">
 
-<div class="pointer-events-none fixed inset-0 -z-20" style="background:#030307;">
-    <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
-</div>
-<div id="dynamic-bg-glows" class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-    <div class="absolute -top-40 -left-32 h-80 w-80 rounded-full bg-gradient-to-br from-amber-500/40 via-amber-500/35 to-yellow-500/30 blur-[100px] animate-pulse-slow transition-colors duration-1000"></div>
-    <div class="absolute top-1/3 -right-40 h-96 w-96 rounded-full bg-gradient-to-bl from-yellow-400/30 via-amber-500/20 to-amber-600/30 blur-[120px] animate-pulse-slow transition-colors duration-1000" style="animation-delay: 1s;"></div>
-    <div class="absolute bottom-[-10rem] left-1/3 h-[420px] w-[420px] rounded-full bg-gradient-to-tr from-amber-700/40 via-yellow-700/30 to-amber-500/30 blur-[140px] animate-pulse-slow transition-colors duration-1000" style="animation-delay: 2s;"></div>
-</div>
+    <!-- Fondo de Red Tecnológica -->
+    <div class="fixed inset-0 z-0 pointer-events-none">
+        <div class="absolute inset-0 bg-grid"></div>
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/10 rounded-full blur-[120px] animate-pulse-glow"></div>
+        <div class="absolute bottom-0 right-0 w-[600px] h-[300px] bg-secondary/10 rounded-full blur-[100px] animate-pulse-glow" style="animation-delay: 2s;"></div>
+    </div>
 
-<nav id="sidebar" class="sidebar fixed inset-y-0 left-0 z-50 w-72 flex flex-col border-r border-white/10 backdrop-blur-xl transition-transform duration-300 lg:translate-x-0" style="background:rgba(5,5,12,0.92);">
-    <div class="flex h-20 shrink-0 items-center px-6 border-b border-white/10">
-        <div class="flex items-center gap-3">
-            <div class="relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-amber-500/20 to-amber-600/20 border border-amber-500/30 shadow-[0_0_15px_var(--tw-shadow-color)] shadow-amber-500/30">
-                <img src="https://i.postimg.cc/qMpyYTcK/Synergy-Team.png" class="rounded-xl w-full h-full object-cover p-0.5" alt="Logo">
+    <!-- Sidebar (Navegación) -->
+    <aside id="sidebar" class="w-72 border-r border-border bg-black/50 backdrop-blur-xl flex flex-col z-40 relative transition-transform duration-300 max-lg:fixed max-lg:inset-y-0 max-lg:-translate-x-full">
+        <!-- Logo -->
+        <div class="h-20 flex items-center px-6 border-b border-border">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-secondary p-px">
+                    <div class="w-full h-full bg-black rounded-[7px] flex items-center justify-center">
+                        <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                    </div>
+                </div>
+                <span class="font-bold text-sm tracking-widest text-white">SILENT<span class="text-primary">HUB</span></span>
             </div>
-            <span class="text-sm font-bold tracking-widest text-slate-100 uppercase">SILENT HUB</span>
+            <button id="close-mobile-menu" class="lg:hidden ml-auto text-textMuted hover:text-white">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
         </div>
-        <button id="close-sidebar" class="ml-auto flex lg:hidden h-8 w-8 items-center justify-center rounded-full bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white">
-            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"></path></svg>
-        </button>
-    </div>
-    <div class="p-4">
-        <div class="relative flex items-center">
-            <svg class="absolute left-3 h-4 w-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
-            <input type="text" id="searchInput" placeholder="Buscar scripts..." class="w-full rounded-xl border border-white/10 bg-white/5 py-2.5 pl-10 pr-4 text-sm text-slate-200 placeholder-slate-500 outline-none transition-all hover:bg-white/10 focus:border-amber-500/50 focus:bg-white/10 focus:shadow-[0_0_20px_var(--tw-shadow-color)] shadow-amber-500/15">
+
+        <!-- Buscador -->
+        <div class="p-4 border-b border-border/50">
+            <div class="relative group">
+                <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-textMuted group-focus-within:text-primary transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                <input type="text" id="global-search" placeholder="Buscar en el catálogo..." class="w-full bg-surface hover:bg-surfaceHover focus:bg-surface border border-border focus:border-primary/50 rounded-lg pl-10 pr-4 py-2.5 text-sm text-white placeholder-textMuted outline-none transition-all shadow-sm">
+            </div>
         </div>
-    </div>
-    <div class="flex-1 overflow-y-auto thin-scrollbar px-3 pb-6">
-        <div class="space-y-1">
-            <a href="#" onclick="showSection('welcome')" class="nav-link active flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-300 transition-colors hover:bg-white/5 hover:text-slate-100" id="nav-welcome">
-                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+
+        <!-- Menú -->
+        <div class="flex-1 overflow-y-auto px-3 py-4 space-y-1">
+            <p class="px-3 text-[10px] font-bold uppercase tracking-wider text-textMuted mb-2">General</p>
+            <button onclick="navigateTo('home')" class="nav-item active w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-textMuted hover:text-white hover:bg-white/5">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
                 Inicio
-            </a>
-            <a href="executors.html" target="_blank" class="nav-link flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-300 transition-colors hover:bg-white/5 hover:text-slate-100">
-                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg>
-                Executores
-            </a>
-            <a href="dashboard.html" target="_blank" class="nav-link flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-300 transition-colors hover:bg-white/5 hover:text-slate-100">
-                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+            </button>
+            <button onclick="navigateTo('dashboard')" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-textMuted hover:text-white hover:bg-white/5">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
                 Dashboard
-            </a>
-        </div>
-        <div class="mt-8 mb-3 px-3 text-xs font-bold uppercase tracking-widest text-slate-500">Catálogo de Scripts</div>
-        <div class="space-y-1" id="categories-list"></div>
-    </div>
-</nav>
+            </button>
 
-<div class="lg:pl-72 flex flex-col min-h-screen">
-    <header class="sticky top-0 z-40 flex h-20 items-center justify-between border-b border-white/5 bg-slate-950/50 px-4 backdrop-blur-xl sm:px-6 lg:px-8">
-        <button id="open-sidebar" class="flex lg:hidden h-10 w-10 items-center justify-center rounded-xl bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white">
-            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"></path></svg>
-        </button>
-        <div class="hidden lg:flex items-center gap-4"></div>
-        
-        <div class="flex items-center gap-4">
-            <a href="https://discord.gg/mJuxqxgY6U" target="_blank" class="group flex h-10 items-center gap-2 rounded-xl border border-amber-500/20 bg-amber-500/10 px-4 text-sm font-semibold text-amber-300 transition-all hover:bg-amber-500/20 hover:text-amber-200 hover:shadow-[0_0_20px_rgba(251,191,36,0.2)]">
-                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
-                Discord
-            </a>
+            <p class="px-3 text-[10px] font-bold uppercase tracking-wider text-textMuted mt-6 mb-2">Repositorio Nube</p>
+            <div id="dynamic-sidebar-categories" class="space-y-1">
+                <!-- Generado por JS -->
+            </div>
         </div>
-    </header>
-
-    <main class="flex-1 p-6 lg:p-12 relative z-10">
         
-        <div id="section-welcome" class="content-section active">
-            <div class="flex flex-col items-center justify-center py-20 text-center animate-fade-in-up">
-                <div class="mb-8 relative">
-                    <div class="absolute inset-0 animate-ping rounded-full bg-amber-500/20 blur-xl"></div>
-                    <img src="https://i.postimg.cc/qMpyYTcK/Synergy-Team.png" alt="Logo" class="relative z-10 mx-auto h-32 w-32 rounded-full border border-amber-500/30 shadow-[0_0_60px_var(--tw-shadow-color)] shadow-amber-500/30 animate-float object-cover p-1">
-                </div>
-                <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-amber-500/20 bg-amber-500/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-amber-300 backdrop-blur-sm">
-                    <span class="relative flex h-2 w-2">
-                        <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-slate-400 opacity-75"></span>
-                        <span class="relative inline-flex h-2 w-2 rounded-full bg-amber-400"></span>
-                    </span>
-                    OWNER: SILENT ⚡️
-                </div>
-                <h1 class="text-5xl font-black tracking-tight text-white sm:text-7xl lg:text-8xl">
-                    Silent<br>
-                    <span class="relative inline-block">
-                        <span class="absolute -inset-2 -z-10 block -skew-y-3 bg-amber-500/20 blur-2xl transition-colors duration-1000"></span>
-                        <span id="header-script-team" class="animate-text-gradient bg-gradient-to-r from-amber-500 via-amber-300 to-amber-500 bg-[length:200%_auto] bg-clip-text text-transparent drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)] transition-colors duration-1000">Hub</span>
-                    </span>
-                </h1>
-                <div class="mt-8 flex flex-col items-center justify-center w-full px-4">
-                    <div class="text-2xl sm:text-4xl lg:text-4xl font-bold tracking-tight text-white/90">
-                        Scripts para 
-                    </div>
-                    <div class="relative mt-2 h-12 sm:h-16 lg:h-20 w-[95vw] sm:w-full max-w-7xl overflow-hidden text-center">
-                        <div id="roulette-container" class="absolute inset-x-0 top-0 flex flex-col transition-transform duration-[400ms] ease-in-out" style="transform: translateY(0);">
-                            <div id="dynamic-game-name-1" class="h-12 sm:h-16 lg:h-20 flex items-center justify-center font-black text-2xl sm:text-4xl lg:text-5xl whitespace-nowrap drop-shadow-[0_0_20px_var(--tw-shadow-color)] shadow-white/30">
-                            </div>
-                            <div id="dynamic-game-name-2" class="h-12 sm:h-16 lg:h-20 flex items-center justify-center font-black text-2xl sm:text-4xl lg:text-5xl whitespace-nowrap drop-shadow-[0_0_20px_var(--tw-shadow-color)] shadow-white/30">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <p class="mx-auto mt-8 max-w-2xl text-lg text-slate-400 sm:text-lg lg:text-xl">
-                    Repositorio privado de scripts alojado en la nube. Explora, copia y ejecuta. Sin intermediarios, sin acortadores.
-                </p>
-                <div class="mt-10 flex flex-wrap justify-center gap-4">
-                    <button onclick="document.getElementById('open-sidebar').click()" class="lg:hidden group relative inline-flex items-center gap-2 rounded-full border border-white/5 bg-white px-8 py-4 text-sm font-bold text-slate-950 transition-all hover:bg-slate-200 hover:shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)]">
-                        Ver catálogo
-                    </button>
-                    <a href="https://discord.gg/mJuxqxgY6U" target="_blank" class="group relative inline-flex items-center gap-2 rounded-full border border-white/5 bg-white/5 px-8 py-4 text-sm font-bold text-white transition-all hover:bg-white/10 hover:border-amber-500/50 backdrop-blur-sm">
-                        <svg class="h-5 w-5 text-amber-500" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
-                        Únete a Discord
-                    </a>
+        <!-- User Badge -->
+        <div class="p-4 border-t border-border mt-auto">
+            <div class="flex items-center gap-3 p-2 rounded-lg bg-surface border border-border">
+                <img src="https://i.postimg.cc/qMpyYTcK/Synergy-Team.png" alt="Silent" class="w-8 h-8 rounded-md object-cover border border-yellow-500/30">
+                <div class="flex flex-col">
+                    <span class="text-xs font-bold text-white">Silent ⚡</span>
+                    <span class="text-[10px] text-yellow-500 font-mono tracking-widest uppercase">System Owner</span>
                 </div>
             </div>
+        </div>
+    </aside>
+
+    <!-- Overlay Mobile -->
+    <div id="mobile-overlay" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-30 hidden lg:hidden"></div>
+
+    <!-- Contenido Principal -->
+    <main class="flex-1 flex flex-col h-screen overflow-hidden relative z-10">
+        
+        <!-- Header Superior -->
+        <header class="h-20 flex items-center justify-between px-6 lg:px-10 border-b border-border bg-black/20 backdrop-blur-md">
+            <button id="open-mobile-menu" class="lg:hidden text-textMuted hover:text-white">
+                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+            </button>
             
-            <div class="mt-20 my-12 flex items-center gap-4 opacity-50 max-w-4xl mx-auto">
-                <div class="h-px flex-1 bg-gradient-to-r from-transparent via-amber-500/50 to-transparent"></div>
-                <span class="text-[10px] sm:text-xs uppercase tracking-[0.25em] font-bold text-amber-400">Garantía SilentHub</span>
-                <div class="h-px flex-1 bg-gradient-to-r from-transparent via-amber-500/50 to-transparent"></div>
+            <div class="hidden lg:flex items-center gap-2 text-sm text-textMuted font-mono">
+                <span id="breadcrumb-path">~ / root / inicio</span>
             </div>
+
+            <div class="flex items-center gap-4 ml-auto">
+                <a href="Aun no disponible" target="_blank" class="flex items-center gap-2 text-xs font-medium text-textMuted hover:text-white transition-colors bg-surface hover:bg-surfaceHover border border-border px-3 py-1.5 rounded-md">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
+                    Soporte
+                </a>
+                <div class="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.5)] animate-pulse" title="Sistemas Operativos"></div>
+            </div>
+        </header>
+
+        <!-- Área de Vistas (SPA) -->
+        <div class="flex-1 overflow-y-auto px-6 py-10 lg:px-12 pb-24 scroll-smooth">
             
-            <div class="grid gap-6 md:grid-cols-3 max-w-5xl mx-auto">
-                <div class="group relative overflow-hidden rounded-2xl border border-white/5 bg-white/[0.02] p-8 transition-all duration-300 hover:-translate-y-1 hover:border-amber-500/30 hover:bg-white/[0.04] hover:shadow-2xl hover:shadow-amber-500/10 backdrop-blur-sm">
-                    <div class="absolute -right-20 -top-20 h-40 w-40 rounded-full bg-amber-500/20 blur-3xl transition-all duration-500 group-hover:bg-amber-500/30"></div>
-                    <div class="relative z-10">
-                        <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-white/5 to-white/10 text-amber-400 ring-1 ring-white/10 transition-all duration-300 group-hover:scale-110 group-hover:bg-gradient-to-br group-hover:from-amber-500 group-hover:to-amber-600 group-hover:text-white shadow-[0_0_15px_rgba(0,0,0,0.5)] group-hover:shadow-[0_0_20px_var(--tw-shadow-color)] shadow-amber-500/40">
-                            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
-                        </div>
-                        <h3 class="mb-3 text-xl font-bold text-white transition-colors group-hover:text-amber-200">Ejecución Inmediata</h3>
-                        <p class="text-sm leading-relaxed text-slate-400 group-hover:text-slate-300">Copia y pega. La estructura de la página está diseñada para que consigas tu script y lo ejecutes sin ver anuncios.</p>
+            <!-- VISTA 1: INICIO -->
+            <div id="view-home" class="view-section animate-fade-in max-w-5xl mx-auto">
+                <div class="flex flex-col items-center text-center mt-10">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/10 text-primary text-xs font-semibold mb-6 animate-slide-up">
+                        <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+                        Infraestructura Cloud Activa
+                    </div>
+                    
+                    <h1 class="text-5xl lg:text-7xl font-bold tracking-tighter mb-6 animate-slide-up" style="animation-delay: 0.1s;">
+                        Despliega Scripts a la <br>
+                        <span class="bg-clip-text text-transparent bg-gradient-to-r from-primary via-secondary to-primary bg-[length:200%_auto] animate-pulse-glow">Velocidad de la Luz</span>
+                    </h1>
+                    
+                    <p class="text-textMuted text-lg max-w-2xl mb-10 animate-slide-up" style="animation-delay: 0.2s;">
+                        Plataforma de nivel empresarial para ejecución, almacenamiento y despliegue de scripts. Arquitectura escalable, latencia cero y protección avanzada para desarrolladores exigentes.
+                    </p>
+                    
+                    <div class="flex gap-4 animate-slide-up" style="animation-delay: 0.3s;">
+                        <button onclick="navigateTo('dashboard')" class="px-6 py-3 rounded-lg bg-white text-black font-semibold hover:bg-gray-200 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.1)]">
+                            Acceder al Dashboard
+                        </button>
+                        <button onclick="document.getElementById('global-search').focus()" class="px-6 py-3 rounded-lg bg-surface border border-border text-white font-medium hover:bg-surfaceHover transition-colors">
+                            Explorar Catálogo
+                        </button>
                     </div>
                 </div>
-                <div class="group relative overflow-hidden rounded-2xl border border-white/5 bg-white/[0.02] p-8 transition-all duration-300 hover:-translate-y-1 hover:border-amber-500/30 hover:bg-white/[0.04] hover:shadow-2xl hover:shadow-amber-500/10 backdrop-blur-sm">
-                    <div class="absolute -right-20 -top-20 h-40 w-40 rounded-full bg-amber-500/20 blur-3xl transition-all duration-500 group-hover:bg-amber-500/30"></div>
-                    <div class="relative z-10">
-                        <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-white/5 to-white/10 text-amber-400 ring-1 ring-white/10 transition-all duration-300 group-hover:scale-110 group-hover:bg-gradient-to-br group-hover:from-amber-500 group-hover:to-amber-600 group-hover:text-white shadow-[0_0_15px_rgba(0,0,0,0.5)] group-hover:shadow-[0_0_20px_var(--tw-shadow-color)] shadow-amber-500/40">
-                            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
-                        </div>
-                        <h3 class="mb-3 text-xl font-bold text-white transition-colors group-hover:text-amber-200">Revisión Personal</h3>
-                        <p class="text-sm leading-relaxed text-slate-400 group-hover:text-slate-300">Cada script agregado aquí es verificado previamente. Calidad sobre cantidad para mantener tus cuentas a salvo.</p>
-                    </div>
-                </div>
-                <div class="group relative overflow-hidden rounded-2xl border border-white/5 bg-white/[0.02] p-8 transition-all duration-300 hover:-translate-y-1 hover:border-amber-500/30 hover:bg-white/[0.04] hover:shadow-2xl hover:shadow-amber-500/10 backdrop-blur-sm">
-                    <div class="absolute -right-20 -top-20 h-40 w-40 rounded-full bg-amber-500/20 blur-3xl transition-all duration-500 group-hover:bg-amber-500/30"></div>
-                    <div class="relative z-10">
-                        <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-white/5 to-white/10 text-amber-400 ring-1 ring-white/10 transition-all duration-300 group-hover:scale-110 group-hover:bg-gradient-to-br group-hover:from-amber-500 group-hover:to-amber-600 group-hover:text-white shadow-[0_0_15px_rgba(0,0,0,0.5)] group-hover:shadow-[0_0_20px_var(--tw-shadow-color)] shadow-amber-500/40">
-                            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h4l2-9 5 18 2-9h5"></path></svg>
-                        </div>
-                        <h3 class="mb-3 text-xl font-bold text-white transition-colors group-hover:text-amber-200">Actualización en la Nube</h3>
-                        <p class="text-sm leading-relaxed text-slate-400 group-hover:text-slate-300">Base de datos sincronizada. Los scripts se actualizan constantemente a través de nuestro Dashboard en Vercel y GitHub.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="h-32"></div>
-        </div>
 
-        <div id="section-search-results" class="content-section hidden animate-fade-in-up transition-opacity duration-300">
-             <div class="mb-10 text-center sm:text-left">
-                <h2 class="text-3xl font-black tracking-tight text-white mb-2">⚡️ Resultados de la Búsqueda</h2>
-                <p class="text-slate-400 text-sm">Buscando por: <span id="search-term-display" class="text-amber-300 font-bold"></span></p>
+                <div class="grid md:grid-cols-3 gap-6 mt-24 animate-slide-up" style="animation-delay: 0.5s;">
+                    <div class="spotlight-card p-6">
+                        <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-4 border border-primary/20">
+                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-white mb-2">Ejecución Instantánea</h3>
+                        <p class="text-sm text-textMuted leading-relaxed">Infraestructura optimizada que garantiza la inyección de código sin retrasos ni intermediarios.</p>
+                    </div>
+                    <div class="spotlight-card p-6">
+                        <div class="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center text-secondary mb-4 border border-secondary/20">
+                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-white mb-2">Seguridad Enterprise</h3>
+                        <p class="text-sm text-textMuted leading-relaxed">Filtros de revisión manual y protección de cuentas integrada. Solo código limpio y verificado.</p>
+                    </div>
+                    <div class="spotlight-card p-6">
+                        <div class="w-10 h-10 rounded-lg bg-green-500/10 flex items-center justify-center text-green-500 mb-4 border border-green-500/20">
+                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-white mb-2">Sync en la Nube</h3>
+                        <p class="text-sm text-textMuted leading-relaxed">Conexión directa con repositorios de GitHub. Los scripts se actualizan en tiempo real.</p>
+                    </div>
+                </div>
             </div>
-            <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" id="search-cards-container">
-            </div>
-        </div>
 
-        <div id="dynamic-sections-container"></div>
-        
+            <!-- VISTA 2: DASHBOARD -->
+            <div id="view-dashboard" class="view-section hidden animate-fade-in max-w-6xl mx-auto">
+                <div class="mb-10 border-b border-border pb-6">
+                    <h2 class="text-3xl font-bold tracking-tight text-white mb-2">Infraestructura <span class="text-primary">Dashboard</span></h2>
+                    <p class="text-textMuted">Monitoreo en tiempo real de los servicios, base de datos y despliegues.</p>
+                </div>
+                
+                <div class="grid lg:grid-cols-3 gap-6">
+                    <!-- Estado del Servidor -->
+                    <div class="spotlight-card p-6 flex flex-col relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-4 opacity-10">
+                            <svg class="w-24 h-24 text-green-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+                        </div>
+                        <div class="flex items-center gap-3 mb-6 relative z-10">
+                            <div class="relative flex h-3 w-3">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                            </div>
+                            <h3 class="text-lg font-semibold text-white">Estado Operativo</h3>
+                        </div>
+                        <p class="text-sm text-textMuted mb-6 flex-1">Latencia actual: 12ms. Los servicios de base de datos y repositorios están respondiendo correctamente.</p>
+                        <button onclick="simulateNetworkCheck(this)" class="w-full py-2.5 rounded-lg border border-border bg-surfaceHover hover:bg-white hover:text-black transition-all text-sm font-medium flex items-center justify-center gap-2 group">
+                            <span>Verificar Conexión</span>
+                        </button>
+                    </div>
+
+                    <!-- Métricas -->
+                    <div class="spotlight-card p-6 flex flex-col">
+                        <h3 class="text-lg font-semibold text-white mb-6">Métricas de Rendimiento</h3>
+                        <div class="space-y-4 flex-1">
+                            <div class="flex justify-between items-center pb-3 border-b border-border/50">
+                                <span class="text-sm text-textMuted">Scripts Indexados</span>
+                                <span class="font-mono text-white" id="stat-scripts">0</span>
+                            </div>
+                            <div class="flex justify-between items-center pb-3 border-b border-border/50">
+                                <span class="text-sm text-textMuted">Uptime API</span>
+                                <span class="font-mono text-green-400">99.99%</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-textMuted">Peticiones (24h)</span>
+                                <span class="font-mono text-white">12.4k</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Log de Actividad -->
+                    <div class="spotlight-card p-6 flex flex-col">
+                        <h3 class="text-lg font-semibold text-white mb-4">Registro de Eventos</h3>
+                        <div class="flex-1 bg-black/50 rounded-lg border border-border p-4 font-mono text-[11px] text-textMuted overflow-y-auto thin-scrollbar">
+                            <div class="mb-2"><span class="text-green-500">[200 OK]</span> Sincronización con GitHub completada.</div>
+                            <div class="mb-2"><span class="text-primary">[INFO]</span> Usuario validado por Cloudflare.</div>
+                            <div class="mb-2"><span class="text-green-500">[200 OK]</span> Base de datos de juegos actualizada.</div>
+                            <div class="opacity-50">Esperando nuevos eventos...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VISTA 3: CATÁLOGO DINÁMICO DE JUEGOS -->
+            <div id="view-catalog" class="view-section hidden animate-fade-in max-w-6xl mx-auto">
+                <div class="mb-10 border-b border-border pb-6 flex justify-between items-end">
+                    <div>
+                        <div class="text-xs font-mono text-primary mb-2 uppercase tracking-widest" id="catalog-category">Repositorio</div>
+                        <h2 class="text-3xl font-bold tracking-tight text-white" id="catalog-title">Título del Juego</h2>
+                    </div>
+                    <span class="text-xs text-textMuted font-mono bg-surface border border-border px-2 py-1 rounded">Read-Only</span>
+                </div>
+                
+                <div class="grid lg:grid-cols-2 gap-6" id="scripts-grid">
+                    <!-- Cards inyectadas por JS -->
+                </div>
+            </div>
+
+            <!-- VISTA 4: RESULTADOS DE BÚSQUEDA -->
+            <div id="view-search" class="view-section hidden animate-fade-in max-w-6xl mx-auto">
+                <div class="mb-10 border-b border-border pb-6">
+                    <h2 class="text-2xl font-bold text-white mb-2">Resultados de búsqueda</h2>
+                    <p class="text-textMuted text-sm">Mostrando coincidencias para: <span id="search-query-display" class="text-primary font-mono bg-primary/10 px-2 py-0.5 rounded"></span></p>
+                </div>
+                <div class="grid lg:grid-cols-2 gap-6" id="search-results-grid">
+                    <!-- Resultados inyectados por JS -->
+                </div>
+            </div>
+
+        </div>
     </main>
-    
-    <footer class="border-t border-white/5 bg-[#020617] px-6 py-8 text-center text-sm text-slate-500 relative z-10 bottom-0 mt-auto">
-        <p class="font-medium text-slate-400">&copy; 2026 SilentHub. Administrado por Silent.</p>
-    </footer>
-</div>
 
-<div id="toast" class="toast fixed bottom-6 right-6 z-[100] flex items-center gap-3 rounded-xl border border-amber-500/30 bg-slate-900/90 px-5 py-4 text-sm font-bold text-white shadow-[0_10px_40px_rgba(251,191,36,0.3)] backdrop-blur-xl">
-    <div class="flex h-8 w-8 items-center justify-center rounded-full bg-amber-500 text-white shadow-[0_0_10px_rgba(251,191,36,0.5)]">
-        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"></path></svg>
+    <!-- Toast Notification (Stripe Style) -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] flex items-center gap-3 bg-surface border border-border shadow-2xl rounded-lg px-4 py-3">
+        <div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center text-green-500">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+        </div>
+        <div class="flex flex-col">
+            <span class="text-sm font-semibold text-white">Copiado al portapapeles</span>
+            <span class="text-[11px] text-textMuted font-mono">El script está listo para inyectarse</span>
+        </div>
     </div>
-    ¡Script Copiado! ⚡️
-</div>
-
-<div id="mobile-overlay" class="fixed inset-0 z-40 hidden bg-slate-950/80 backdrop-blur-sm lg:hidden transition-opacity"></div>
-
-<script>
-function showSection(id) {
-    document.querySelectorAll('.content-section').forEach(el => {
-        el.classList.add('hidden');
-        el.classList.remove('active');
-    });
-    document.querySelectorAll('.nav-link').forEach(el => {
-        el.classList.remove('active');
-    });
-    const target = document.getElementById('section-' + id);
-    if (target) {
-        target.classList.remove('hidden');
-        target.classList.add('active');
-        const nav = document.getElementById('nav-' + id);
-        if (nav) nav.classList.add('active');
-    }
-    if (window.innerWidth < 1024) {
-        document.body.classList.remove('sidebar-open');
-        document.getElementById('mobile-overlay').classList.add('hidden');
-    }
-    window.scrollTo({top: 0, behavior: 'smooth'});
-}
-
-function copyCode(id, btn) {
-    const text = document.getElementById(id).innerText;
-    navigator.clipboard.writeText(text).then(() => {
-        const originalHTML = btn.innerHTML;
-        btn.innerHTML = '<svg class="h-4 w-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"></path></svg>';
-        btn.classList.add('border-emerald-500', 'bg-emerald-500', 'shadow-[0_0_15px_rgba(16,185,129,0.5)]', 'text-white', 'scale-110');
-        btn.classList.remove('text-slate-300', 'border-white/10', 'bg-white/5', 'hover:bg-amber-500', 'hover:border-amber-500');
-        const toast = document.getElementById('toast');
-        toast.classList.add('show');
-        setTimeout(() => {
-            btn.innerHTML = originalHTML;
-            btn.classList.remove('border-emerald-500', 'bg-emerald-500', 'shadow-[0_0_15px_rgba(16,185,129,0.5)]', 'text-white', 'scale-110');
-            btn.classList.add('text-slate-300', 'border-white/10', 'bg-white/5', 'hover:bg-amber-500', 'hover:border-amber-500');
-            toast.classList.remove('show');
-        }, 2500);
-    });
-}
-
-document.getElementById('open-sidebar').addEventListener('click', () => {
-    document.body.classList.add('sidebar-open');
-    document.getElementById('mobile-overlay').classList.remove('hidden');
-});
-document.getElementById('close-sidebar').addEventListener('click', () => {
-    document.body.classList.remove('sidebar-open');
-    document.getElementById('mobile-overlay').classList.add('hidden');
-});
-document.getElementById('mobile-overlay').addEventListener('click', () => {
-    document.body.classList.remove('sidebar-open');
-    document.getElementById('mobile-overlay').classList.add('hidden');
-});
-
-// AQUI ESTÁN TUS SCRIPTS LUA (Puedes agregar más usando el mismo formato)
-const originalGamesData = [
-  {id: "99-nights-in-the-forest", title: "99 Nights In The Forest", scripts: [
-    {title: "Bonk Hub", code: "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Synergy-Team-Official/Script-Repository/main/Obfuscated-Scripts/Games/99-Nights-In-The-Forest/Kaitan-Hub.lua\"))()"},
-    {title: "Foxname Diamonds", code: "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Synergy-Team-Official/Script-Repository/main/Obfuscated-Scripts/Games/99-Nights-In-The-Forest/Kaitan-Hub.lua\"))()"},
-    {title: "Voidware Hub", code: "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Synergy-Team-Official/Script-Repository/main/Obfuscated-Scripts/Games/99-Nights-In-The-Forest/Voidware-Hub.lua\"))()"}
-  ]},
-  {id: "arsenal", title: "Arsenal", scripts: [
-    {title: "Neusence Full", code: "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Synergy-Team-Official/Script-Repository/main/Obfuscated-Scripts/Games/Arsenal/Neusence-Full.lua\"))()"},
-    {title: "Skidded Tech", code: "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Synergy-Team-Official/Script-Repository/main/Obfuscated-Scripts/Games/Arsenal/Skidded-Tech.lua\"))()"},
-    {title: "Ignite", code: "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Synergy-Team-Official/Script-Repository/main/Obfuscated-Scripts/Games/Arsenal/Ignite.lua\"))()"}
-  ]},
-  {id: "blox-fruits", title: "Blox Fruits", scripts: [
-    {title: "Astral Hub", code: "loadstring(game:HttpGet('https://cdn.robloxscripts.gg/public/furky/furky-astral-source.lua'))()"},
-    {title: "Floppblox", code: "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/FloppHub-Team/BloxFruits-Script/refs/heads/main/FloppHubX.lua\"))()"},
-    {title: "Hoho Hub", code: "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI\"))()"},
-    {title: "Redz Hub (Remake)", code: "local Settings = {\n  JoinTeam = \"Pirates\";\n  Translator = true;\n}\nloadstring(game:HttpGet(\"https://raw.githubusercontent.com/PlockScripts/newredz/refs/heads/main/Remake-version.luau\"))(Settings)"}
-  ]},
-  {id: "fisch", title: "Fisch", scripts: [
-    {title: "Alchemy Hub", code: "loadstring(game:HttpGet(\"https://scripts.alchemyhub.xyz\"))()"},
-    {title: "Zenith Hub", code: "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/rxito/ZenithHub/refs/heads/main/Loader\"))()"}
-  ]},
-  {id: "steal-a-brainrot", title: "Steal A Brainrot", scripts: [
-    {title: "Ajjan", code: "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/onliengamerop/Steal-a-brainrot/main/Protected_3771863424757750.lua.txt\"))()"},
-    {title: "Auto Buy Dealer", code: "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/AutoBuyBrainrotDealer/Auto-Buy/refs/heads/main/AutoBuyDealer\"))()"}
-  ]}
-];
-
-const gamesData = [...originalGamesData];
-
-function renderDynamicContent() {
-    const categoriesList = document.getElementById('categories-list');
-    const sectionsContainer = document.getElementById('dynamic-sections-container');
-    categoriesList.innerHTML = '';
-    sectionsContainer.innerHTML = '';
-    
-    function createFolder(folderName, gamesArray) {
-        const folderDiv = document.createElement('div');
-        folderDiv.className = 'mb-2';
-        const headerDiv = document.createElement('div');
-        headerDiv.className = 'folder-header flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold text-amber-200 hover:bg-white/5 transition-colors cursor-pointer';
-        const arrowSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        arrowSvg.setAttribute('class', 'folder-arrow h-3 w-3 text-amber-500 transition-transform');
-        arrowSvg.setAttribute('viewBox', '0 0 24 24');
-        arrowSvg.setAttribute('fill', 'none');
-        arrowSvg.setAttribute('stroke', 'currentColor');
-        arrowSvg.setAttribute('stroke-width', '2');
-        arrowSvg.innerHTML = '<polyline points="9 18 15 12 9 6"></polyline>';
-        const folderTitle = document.createElement('span');
-        folderTitle.textContent = folderName;
-        headerDiv.appendChild(arrowSvg);
-        headerDiv.appendChild(folderTitle);
-        const contentDiv = document.createElement('div');
-        contentDiv.className = 'collapsible-content ml-4 mt-1 space-y-1 hidden';
-        gamesArray.forEach(game => {
-            const gameLink = document.createElement('a');
-            gameLink.href = '#';
-            gameLink.setAttribute('onclick', `showSection('${game.id}')`);
-            gameLink.className = 'nav-link flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-slate-400 transition-colors hover:bg-white/5 hover:text-amber-300';
-            gameLink.id = `nav-${game.id}`;
-            gameLink.innerHTML = `<svg class="h-3 w-3 shrink-0 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"></path></svg><span class="truncate">${game.title}</span>`;
-            contentDiv.appendChild(gameLink);
-        });
-        folderDiv.appendChild(headerDiv);
-        folderDiv.appendChild(contentDiv);
-        headerDiv.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const isHidden = contentDiv.classList.contains('hidden');
-            if (isHidden) {
-                contentDiv.classList.remove('hidden');
-                arrowSvg.style.transform = 'rotate(180deg)';
-            } else {
-                contentDiv.classList.add('hidden');
-                arrowSvg.style.transform = 'rotate(0deg)';
-            }
-        });
-        return folderDiv;
-    }
-    
-    const scriptRepoFolder = createFolder('⚡️ SilentHub Scripts', gamesData);
-    categoriesList.appendChild(scriptRepoFolder);
-    
-    gamesData.forEach((game) => {
-        const section = document.createElement('div');
-        section.id = `section-${game.id}`;
-        section.className = 'content-section hidden animate-fade-in-up transition-opacity duration-300';
-        section.innerHTML = `
-            <div class="mb-10 text-center sm:text-left border-b border-white/5 pb-8">
-                <div class="inline-flex items-center gap-2 rounded-full border border-amber-500/20 bg-amber-500/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-amber-300 backdrop-blur-sm mb-4">CATEGORÍA DE JUEGO</div>
-                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400 mb-4">${game.title}</h2>
-                <p class="text-slate-400 max-w-2xl sm:text-lg">Selecciona el script que deseas usar y cópialo con un click.</p>
-            </div>
-            <div class="grid gap-6 sm:grid-cols-2 2xl:grid-cols-3" id="grid-${game.id}"></div>
-            <div class="h-12"></div>`;
-        sectionsContainer.appendChild(section);
-        const grid = document.getElementById(`grid-${game.id}`);
-        game.scripts.forEach((script, sidx) => {
-            const uniqueId = `code_${game.id}_${sidx}`;
-            const card = document.createElement('div');
-            card.className = 'group relative flex flex-col overflow-hidden rounded-2xl border border-white/5 bg-[#0a0f18]/80 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-amber-500/30 hover:shadow-2xl hover:shadow-amber-500/15 script-card-item';
-            card.setAttribute('data-title', script.title.toLowerCase());
-            card.innerHTML = `
-                <div class="absolute inset-0 bg-gradient-to-b from-amber-500/5 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
-                <div class="relative flex items-center justify-between border-b border-white/5 bg-white/[0.01] px-5 py-4 transition-colors group-hover:bg-white/[0.03]">
-                    <h3 class="font-bold text-slate-100 group-hover:text-amber-300 transition-colors truncate pr-4 text-sm sm:text-base">${script.title}</h3>
-                    <button onclick="copyCode('${uniqueId}', this)" class="shrink-0 flex items-center justify-center h-8 w-8 rounded-full border border-white/10 bg-white/5 text-slate-300 transition-all hover:bg-amber-500 hover:text-white hover:border-amber-500 hover:shadow-[0_0_15px_rgba(251,191,36,0.4)] hover:scale-105" title="Copiar Script">
-                        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                    </button>
-                </div>
-                <div class="relative p-5 flex-1 flex flex-col bg-transparent">
-                    <pre class="flex-1 w-full overflow-x-auto rounded-xl bg-slate-900/50 p-4 text-[11px] leading-relaxed text-slate-300 font-mono thin-scrollbar border border-white/5 shadow-inner selection:bg-amber-500/30 group-hover:border-white/10 transition-colors"><code id="${uniqueId}">${script.code.replace(/[&<>]/g, function(m){if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;})}</code></pre>
-                </div>
-            `;
-            grid.appendChild(card);
-        });
-    });
-    window.availableGameTitles = gamesData.map(g => g.title);
-    window.currentGamePool = [];
-}
-
-renderDynamicContent();
-
-const searchInput = document.getElementById('searchInput');
-searchInput.addEventListener('input', (e) => {
-    const query = e.target.value.toLowerCase().trim();
-    if (query.length > 0) {
-        showSection('search-results');
-        document.getElementById('search-term-display').innerText = query;
-        const container = document.getElementById('search-cards-container');
-        container.innerHTML = '';
-        let found = 0;
-        document.querySelectorAll('.script-card-item').forEach(card => {
-            if(card.getAttribute('data-title').includes(query)) {
-                container.appendChild(card.cloneNode(true));
-                found++;
-            }
-        });
-        if (found === 0) {
-            container.innerHTML = '<div class="col-span-1 sm:col-span-2 lg:col-span-3 text-center py-20 text-slate-500 flex flex-col items-center"><svg class="h-12 w-12 text-slate-600 mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>No se encontraron scripts.</div>';
-        }
-    } else {
-        showSection('welcome');
-    }
-});
-
-// Ruleta de nombres
-function shuffleArray(array) { for (let i = array.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [array[i], array[j]] = [array[j], array[i]]; } return array; }
-function cycleGameName() {
-    if(!window.availableGameTitles) return;
-    const container = document.getElementById('roulette-container');
-    const name1 = document.getElementById('dynamic-game-name-1');
-    const name2 = document.getElementById('dynamic-game-name-2');
-    if(!container || !name1 || !name2) return;
-    
-    if (!window.currentGamePool || window.currentGamePool.length === 0) {
-        window.currentGamePool = shuffleArray([...window.availableGameTitles]);
-    }
-    const nextGame = window.currentGamePool.shift();
-    
-    name2.innerText = nextGame;
-    name2.style.color = '#fbbf24'; // Color amber-400
-    
-    container.style.transform = 'translateY(-50%)';
-    setTimeout(() => {
-        name1.innerText = nextGame;
-        name1.style.color = '#fbbf24';
-        container.style.transition = 'none';
-        container.style.transform = 'translateY(0)';
-        void container.offsetHeight;
-        container.style.transition = 'transform 0.40s ease-in-out';
-    }, 400);
-}
-
-setTimeout(() => {
-    if(window.availableGameTitles && window.availableGameTitles.length) {
-        cycleGameName();
-        setInterval(cycleGameName, 3000);
-    }
-}, 500);
-
-</script>
-</body>
-</h<!-- ... arriba están todos los scripts de JS ... -->
-
-/* CSS adicional para controlar el menú lateral en móviles */
-@media (max-width: 1024px) {
-    .sidebar { transform: translateX(-100%); }
-    body.sidebar-open .sidebar { transform: translateX(0); }
-}
-</style>
 </body>
 </html>
