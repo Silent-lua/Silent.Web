@@ -1,6 +1,6 @@
 /**
  * ==========================================================================
- * SilentHub Enterprise - Core Logic & Staggered Animations
+ * SilentHub Enterprise - Core Logic & Robust Cards
  * ==========================================================================
  */
 
@@ -36,7 +36,6 @@ let currentTotalScripts = 0;
 
 function initSystem() {
     renderSidebar();
-    initSpotlightEffect();
     setupEventListeners();
 }
 
@@ -68,7 +67,6 @@ function navigateTo(viewId, gameData = null) {
     if (viewId === 'dashboard') initTerminalSim();
 
     closeMobileMenu();
-    setTimeout(initSpotlightEffect, 50);
 }
 
 function renderSidebar() {
@@ -154,18 +152,20 @@ function renderScriptsGrid(scriptsArray, containerId) {
         const escapedForCopy = script.code.replace(/\\/g, '\\\\').replace(/"/g, '&quot;');
         
         const card = document.createElement('div');
-        card.className = 'spotlight-card flex flex-col h-full animate-slide-up';
-        card.style.animationDelay = `${idx * 0.08}s`; // Efecto Cascada
+        // Adaptación del diseño robusto del zip original (p-5, rounded-xl)
+        card.className = 'group relative flex flex-col overflow-hidden rounded-xl border border-border bg-background transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-2xl hover:shadow-primary/10 animate-slide-up';
+        card.style.animationDelay = `${idx * 0.08}s`;
 
         card.innerHTML = `
-            <div class="flex items-center justify-between p-3 border-b border-border bg-surface">
-                <h3 class="font-medium text-white text-xs truncate pr-2">${script.title}</h3>
-                <button onclick="copyToClipboard(this, \`${escapedForCopy}\`)" class="shrink-0 p-1.5 rounded hover:bg-primary/10 text-textMuted hover:text-primary transition-colors">
-                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <div class="absolute inset-0 bg-gradient-to-b from-primary/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 pointer-events-none z-0"></div>
+            <div class="relative z-10 flex items-center justify-between border-b border-border bg-white/[0.01] px-5 py-4 transition-colors group-hover:bg-white/[0.02]">
+                <h3 class="font-bold text-white group-hover:text-primaryLight transition-colors truncate pr-4 text-sm">${script.title}</h3>
+                <button onclick="copyToClipboard(this, \`${escapedForCopy}\`)" class="shrink-0 flex items-center justify-center h-8 w-8 rounded-full border border-border bg-surfaceHover text-textMuted transition-all hover:bg-primary hover:text-black hover:border-primary hover:shadow-[0_0_15px_rgba(234,179,8,0.4)] hover:scale-105" title="Copiar Script">
+                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                 </button>
             </div>
-            <div class="p-3 bg-black flex-1 relative overflow-hidden">
-                <pre class="code-block text-textMuted overflow-x-auto custom-scrollbar pb-1 text-[11px]"><code>${safeCode}</code></pre>
+            <div class="relative z-10 p-5 flex-1 flex flex-col bg-transparent">
+                <pre class="flex-1 w-full overflow-x-auto rounded-lg bg-[#050505] p-4 text-[11px] leading-relaxed text-textMuted font-mono custom-scrollbar border border-border shadow-inner group-hover:border-primary/20 transition-colors"><code>${safeCode}</code></pre>
             </div>
         `;
         container.appendChild(card);
@@ -197,26 +197,26 @@ function handleSearch(e) {
         results.forEach((script, idx) => {
             const escapedForCopy = script.code.replace(/\\/g, '\\\\').replace(/"/g, '&quot;');
             const card = document.createElement('div');
-            card.className = 'spotlight-card flex flex-col h-full animate-slide-up';
+            card.className = 'group relative flex flex-col overflow-hidden rounded-xl border border-border bg-background transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-2xl hover:shadow-primary/10 animate-slide-up';
             card.style.animationDelay = `${idx * 0.08}s`;
 
             card.innerHTML = `
-                <div class="flex items-center justify-between p-3 border-b border-border bg-surface">
-                    <div class="overflow-hidden pr-2">
-                        <div class="text-[9px] text-primary font-mono uppercase truncate">${script.folder} / ${script.parent}</div>
-                        <h3 class="font-medium text-white text-xs truncate">${script.title}</h3>
+                <div class="absolute inset-0 bg-gradient-to-b from-primary/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 pointer-events-none z-0"></div>
+                <div class="relative z-10 flex items-center justify-between border-b border-border bg-white/[0.01] px-5 py-4 transition-colors group-hover:bg-white/[0.02]">
+                    <div class="overflow-hidden pr-4">
+                        <div class="text-[9px] text-primary font-mono uppercase truncate mb-1">${script.folder} / ${script.parent}</div>
+                        <h3 class="font-bold text-white group-hover:text-primaryLight transition-colors truncate text-sm">${script.title}</h3>
                     </div>
-                    <button onclick="copyToClipboard(this, \`${escapedForCopy}\`)" class="shrink-0 p-1.5 rounded hover:bg-primary/10 text-textMuted hover:text-primary transition-colors">
-                        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                    <button onclick="copyToClipboard(this, \`${escapedForCopy}\`)" class="shrink-0 flex items-center justify-center h-8 w-8 rounded-full border border-border bg-surfaceHover text-textMuted transition-all hover:bg-primary hover:text-black hover:border-primary hover:shadow-[0_0_15px_rgba(234,179,8,0.4)] hover:scale-105" title="Copiar Script">
+                        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                     </button>
                 </div>
-                <div class="p-3 bg-black flex-1 relative overflow-hidden">
-                    <pre class="code-block text-textMuted overflow-x-auto custom-scrollbar pb-1 text-[11px]"><code>${script.code.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]))}</code></pre>
+                <div class="relative z-10 p-5 flex-1 flex flex-col bg-transparent">
+                    <pre class="flex-1 w-full overflow-x-auto rounded-lg bg-[#050505] p-4 text-[11px] leading-relaxed text-textMuted font-mono custom-scrollbar border border-border shadow-inner group-hover:border-primary/20 transition-colors"><code>${script.code.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]))}</code></pre>
                 </div>
             `;
             container.appendChild(card);
         });
-        initSpotlightEffect();
     } else {
         navigateTo('home');
     }
@@ -225,32 +225,20 @@ function handleSearch(e) {
 function copyToClipboard(btnElement, text) {
     navigator.clipboard.writeText(text).then(() => {
         const originalHtml = btnElement.innerHTML;
-        // SVG Checkmark
-        btnElement.innerHTML = `<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>`;
-        btnElement.classList.add('text-primary');
-        btnElement.classList.remove('text-textMuted');
+        // Botón Animado Gold Al copiar
+        btnElement.innerHTML = `<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>`;
+        btnElement.classList.add('bg-primary', 'text-black', 'border-primary', 'shadow-[0_0_15px_rgba(234,179,8,0.5)]', 'scale-110');
+        btnElement.classList.remove('bg-surfaceHover', 'text-textMuted');
 
         const toast = document.getElementById('toast');
-        if(toast) toast.classList.remove('translate-y-20', 'opacity-0');
+        if(toast) toast.classList.remove('translate-y-24', 'opacity-0');
         
         setTimeout(() => {
             btnElement.innerHTML = originalHtml;
-            btnElement.classList.remove('text-primary');
-            btnElement.classList.add('text-textMuted');
-            if(toast) toast.classList.add('translate-y-20', 'opacity-0');
+            btnElement.classList.remove('bg-primary', 'text-black', 'border-primary', 'shadow-[0_0_15px_rgba(234,179,8,0.5)]', 'scale-110');
+            btnElement.classList.add('bg-surfaceHover', 'text-textMuted');
+            if(toast) toast.classList.add('translate-y-24', 'opacity-0');
         }, 2000);
-    });
-}
-
-function initSpotlightEffect() {
-    document.querySelectorAll('.spotlight-card').forEach(card => {
-        const clone = card.cloneNode(true);
-        card.parentNode.replaceChild(clone, card);
-        clone.addEventListener('mousemove', e => {
-            const rect = clone.getBoundingClientRect();
-            clone.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
-            clone.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
-        });
     });
 }
 
