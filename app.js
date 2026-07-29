@@ -1,111 +1,44 @@
-/**
- * ==========================================================================
- * SilentHub Enterprise - SPA & UI Logic
- * ==========================================================================
- */
-
-// ==========================================================================
-// SilentHub Enterprise - Base de Datos de Scripts Integrada
-// ==========================================================================
-
 const scriptDatabase = [
+    // --- ⚡️ CARPETA: SILENTHUB (Siempre arriba) ---
     {
-        id: "99-nights-in-the-forest",
-        title: "99 Nights In The Forest",
+        id: "silenthub-oficial",
+        title: "ScriptsVip",
+        folder: "SilentHub",
         scripts: [
-            { title: "Bonk Hub", code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Synergy-Team-Official/Script-Repository/main/Obfuscated-Scripts/Games/99-Nights-In-The-Forest/Kaitan-Hub.lua"))()' },
-            { title: "Voidware Hub", code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Synergy-Team-Official/Script-Repository/main/Obfuscated-Scripts/Games/99-Nights-In-The-Forest/Voidware-Hub.lua"))()' }
+            { 
+                title: "Universal Shooters (Movil)", 
+                code: 'loadstring(game:HttpGet("https://silenthub-web.vercel.app/Scripts/SilentHub/Universal.lua"))()' 
+            }
         ]
     },
+    
+    // --- 📁 CARPETA: OTHERS ---
     {
-        id: "arsenal",
-        title: "Arsenal",
+        id: "others",
+        title: "Others",
+        folder: "Others",
         scripts: [
-            { title: "Quotas Hub", code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Synergy-Team-Official/Script-Repository/main/Obfuscated-Scripts/Games/Arsenal/Quotas-Hub.lua"))()' },
-            { title: "Neusence Full", code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Synergy-Team-Official/Script-Repository/main/Obfuscated-Scripts/Games/Arsenal/Neusence-Full.lua"))()' },
-            { title: "Ignite", code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Synergy-Team-Official/Script-Repository/main/Obfuscated-Scripts/Games/Arsenal/Ignite.lua"))()' }
+            { 
+                title: "CyberCode Main", 
+                code: 'loadstring(game:HttpGet("https://silenthub-web.vercel.app/Scripts/Others/CyberCode.lua"))()' 
+            }
         ]
     },
+
+    // --- 🔧 CARPETA: UTILITIES ---
     {
-        id: "bee-swarm-simulator",
-        title: "Bee Swarm Simulator",
+        id: "utilities-tools",
+        title: "Rendimiento y Herramientas",
+        folder: "Utilities",
         scripts: [
-            { title: "Neon Hub", code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Synergy-Team-Official/Script-Repository/main/Obfuscated-Scripts/Games/Bee-Swarm-Simulator/Neon-Hub.lua"))()' }
-        ]
-    },
-    {
-        id: "blox-fruits",
-        title: "Blox Fruits",
-        scripts: [
-            { title: "Astra Hub", code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Synergy-Team-Official/Script-Repository/main/Obfuscated-Scripts/Games/Blox-Fruits/Astra-Hub.lua"))()' },
-            { title: "Ky Hub", code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Synergy-Team-Official/Script-Repository/main/Obfuscated-Scripts/Games/Blox-Fruits/Ky-Hub.lua"))()' },
-            { title: "Vylera Hub", code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Synergy-Team-Official/Script-Repository/main/Obfuscated-Scripts/Games/Blox-Fruits/Vylera-Hub.lua"))()' },
-            { title: "ZX9 Hub", code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Synergy-Team-Official/Script-Repository/main/Obfuscated-Scripts/Games/Blox-Fruits/ZX9-Hub.lua"))()' },
-            { title: "Astral Hub", code: 'loadstring(game:HttpGet("https://cdn.robloxscripts.gg/public/furky/furky-astral-source.lua"))()' },
-            { title: "Hoho Hub", code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI"))()' }
-        ]
-    },
-    {
-        id: "blue-lock-rivals",
-        title: "Blue Lock Rivals",
-        scripts: [
-            { title: "The Bill Dev Hub", code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Synergy-Team-Official/Script-Repository/main/Obfuscated-Scripts/Games/Blue-Lock-Rivals/The-Bill-Dev-Hub.lua"))()' }
-        ]
-    },
-    {
-        id: "brookhaven",
-        title: "Brookhaven",
-        scripts: [
-            { title: "Chaos Hub", code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Synergy-Team-Official/Script-Repository/main/Obfuscated-Scripts/Games/Brookhaven/Chaos-Hub.lua"))()' }
-        ]
-    },
-    {
-        id: "dead-rails",
-        title: "Dead Rails",
-        scripts: [
-            { title: "Ringta Hub", code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Synergy-Team-Official/Script-Repository/main/Obfuscated-Scripts/Games/Dead-Rails/Ringta-Hub.lua"))()' }
-        ]
-    },
-    {
-        id: "fisch",
-        title: "Fisch",
-        scripts: [
-            { title: "Alchemy Hub", code: 'loadstring(game:HttpGet("https://scripts.alchemyhub.xyz"))()' }
-        ]
-    },
-    {
-        id: "funky-friday",
-        title: "Funky Friday",
-        scripts: [
-            { title: "Luna Hub", code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Synergy-Team-Official/Script-Repository/main/Obfuscated-Scripts/Games/Funky-Friday/Luna-Hub.lua"))()' }
-        ]
-    },
-    {
-        id: "ink-game",
-        title: "Ink Game",
-        scripts: [
-            { title: "Dollar Hub", code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Synergy-Team-Official/Script-Repository/main/Obfuscated-Scripts/Games/Ink-Game/Dollar-Hub.lua"))()' }
-        ]
-    },
-    {
-        id: "prison-life",
-        title: "Prison Life",
-        scripts: [
-            { title: "Ultra Sigma Hax v2", code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Synergy-Team-Official/Script-Repository/main/Obfuscated-Scripts/Games/Prison-Life/Ultra-Sigma-Hax-v2.lua"))()' }
-        ]
-    },
-    {
-        id: "rivals",
-        title: "Rivals",
-        scripts: [
-            { title: "Soluna Hub", code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Synergy-Team-Official/Script-Repository/main/Obfuscated-Scripts/Games/Rivals/Soluna-Hub.lua"))()' }
-        ]
-    },
-    {
-        id: "utilitarios",
-        title: "Utilitarios",
-        scripts: [
-            { title: "Universal Shiftlock", code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Synergy-Team-Official/Script-Repository/main/Obfuscated-Scripts/Utilities/Shiftlock.lua"))()' }
+            { 
+                title: "Boost FPS", 
+                code: 'loadstring(game:HttpGet("https://silenthub-web.vercel.app/Scripts/Utilities/BoostFps"))()' 
+            },
+            { 
+                title: "Universal ShiftLock", 
+                code: 'loadstring(game:HttpGet("https://silenthub-web.vercel.app/Scripts/Utilities/ShiftLock"))()' 
+            }
         ]
     }
 ];
