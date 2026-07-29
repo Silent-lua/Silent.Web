@@ -100,3 +100,43 @@ body {
     pointer-events: none;
     z-index: 10;
 }
+
+/* Latido del icono SVG (Centro de Control) */
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0px transparent); }
+    15% { transform: scale(1.15); filter: drop-shadow(0 0 8px rgba(234,179,8,0.8)); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.15); filter: drop-shadow(0 0 8px rgba(234,179,8,0.8)); }
+    60% { transform: scale(1); filter: drop-shadow(0 0 0px transparent); }
+}
+.animate-heartbeat { 
+    animation: heartbeat 2.5s ease-in-out infinite; 
+}
+
+/* Dibujado infinito de la línea interna del icono */
+@keyframes dashPulse {
+    0% { stroke-dashoffset: 100; opacity: 0.2; }
+    50% { stroke-dashoffset: 0; opacity: 1; }
+    100% { stroke-dashoffset: -100; opacity: 0.2; }
+}
+.animate-dash { 
+    animation: dashPulse 2.5s ease-in-out infinite; 
+}
+
+/* Escáner Láser Horizontal (Arriba del Gráfico SVG) */
+@keyframes scanX {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(300%); }
+}
+.animate-scan-x { 
+    animation: scanX 3s linear infinite; 
+}
+
+/* Pulso rápido para el contenedor del Indicador Superior */
+@keyframes pulseFast {
+    0%, 100% { opacity: 0.1; }
+    50% { opacity: 0.5; }
+}
+.animate-pulse-fast { 
+    animation: pulseFast 1.5s ease-in-out infinite; 
+}

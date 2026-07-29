@@ -35,7 +35,7 @@
                         'fade-in': 'fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
                         'slide-up': 'slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
                         'pulse-gold': 'pulseGold 6s ease-in-out infinite',
-                        'gradient-x': 'gradientX 4s ease infinite',
+                        'gradient-x': 'gradientX 3s ease infinite',
                         'float': 'float 6s ease-in-out infinite',
                     },
                     keyframes: {
@@ -122,10 +122,12 @@
                 <span id="breadcrumb-path">~/root/vision_general</span>
             </div>
 
+            <!-- INDICADOR VERDE/ROJO DINÁMICO (MODIFICADO) -->
             <div class="flex items-center gap-4 ml-auto">
-                <div class="flex items-center gap-2 px-3 py-1 rounded-full border border-primary/20 bg-primary/5">
-                    <div class="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_8px_rgba(234,179,8,0.8)] animate-pulse"></div>
-                    <span class="text-[9px] font-mono text-primaryLight uppercase tracking-wider hidden sm:inline">Red Segura</span>
+                <div id="network-status-container" class="relative flex items-center gap-2 px-3 py-1 rounded-full border border-green-500/40 bg-green-500/10 shadow-[0_0_15px_rgba(34,197,94,0.15)] transition-colors duration-500 overflow-hidden">
+                    <div class="absolute inset-0 bg-green-500/10 animate-pulse-fast"></div>
+                    <div id="network-status-dot" class="w-1.5 h-1.5 rounded-full bg-green-500 shadow-[0_0_10px_#22c55e] animate-pulse relative z-10"></div>
+                    <span id="network-status-text" class="text-[9px] font-mono text-green-400 uppercase tracking-wider hidden sm:inline relative z-10 transition-colors duration-500">API: Online</span>
                 </div>
             </div>
         </header>
@@ -150,6 +152,7 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 lg:mt-16 animate-slide-up" style="animation-delay: 0.4s;">
+                    <!-- Tarjetas de inicio... se mantienen igual -->
                     <div class="spotlight-card p-6 flex flex-col items-center text-center group">
                         <div class="w-12 h-12 rounded-full border border-primary/20 bg-primary/5 flex items-center justify-center text-primary mb-4 group-hover:scale-110 transition-transform duration-300">
                             <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
@@ -178,17 +181,9 @@
             <div id="view-dashboard" class="view-section hidden animate-fade-in max-w-7xl mx-auto">
                 <div class="mb-8 border-b border-border pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
                     <div>
-                        <h2 class="text-3xl font-bold tracking-tight text-white mb-2">Centro de <span class="text-primary">Control</span></h2>
+                        <!-- TEXTO "CONTROL" ANIMADO -->
+                        <h2 class="text-3xl font-bold tracking-tight text-white mb-2">Centro de <span class="bg-clip-text text-transparent bg-gradient-to-r from-primary via-primaryLight to-yellow-600 bg-[length:200%_auto] animate-gradient-x drop-shadow-[0_0_15px_rgba(234,179,8,0.4)]">Control</span></h2>
                         <p class="text-textMuted text-sm">Monitoreo de telemetría, base de datos y nodos de ejecución en tiempo real.</p>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <span class="flex items-center gap-2 text-xs font-mono bg-surface border border-border px-3 py-1.5 rounded-md">
-                            <span class="relative flex h-2 w-2">
-                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                                <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                            </span>
-                            API: ONLINE
-                        </span>
                     </div>
                 </div>
                 
@@ -202,9 +197,12 @@
                                 <h3 class="text-lg font-bold text-white mb-1">Estado de Infraestructura</h3>
                                 <p class="text-xs text-textMuted">Nodos alojados en Vercel & Render</p>
                             </div>
-                            <div class="w-12 h-12 rounded-full border border-primary/30 flex items-center justify-center relative">
+                            <!-- ICONO HEARTBEAT ANIMADO -->
+                            <div class="w-12 h-12 rounded-full border border-primary/30 flex items-center justify-center relative shadow-[0_0_20px_rgba(234,179,8,0.15)] bg-background">
                                 <div class="absolute inset-0 rounded-full border border-primary/50 animate-ping opacity-20"></div>
-                                <svg class="w-5 h-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                                <svg class="w-5 h-5 text-primary animate-heartbeat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline class="animate-dash" stroke-dasharray="100" stroke-dashoffset="100" points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                                </svg>
                             </div>
                         </div>
 
@@ -225,10 +223,16 @@
                     </div>
 
                     <div class="spotlight-card col-span-1 md:col-span-2 lg:col-span-2 p-6 flex flex-col relative">
-                        <div class="flex justify-between items-center mb-6">
+                        <div class="flex justify-between items-center mb-4 z-10">
                             <h3 class="text-sm font-bold text-white">Peticiones de Red (24h)</h3>
                             <span class="text-xs font-mono text-green-400 bg-green-400/10 px-2 py-1 rounded">+12.4%</span>
                         </div>
+
+                        <!-- LÍNEA ESCÁNER LÁSER -->
+                        <div class="w-full h-[1px] bg-border relative overflow-hidden mb-4">
+                            <div class="absolute top-0 left-0 h-full w-1/3 bg-gradient-to-r from-transparent via-primary to-transparent animate-scan-x"></div>
+                        </div>
+
                         <div class="flex-1 w-full h-full min-h-[120px] relative flex items-end">
                             <svg class="w-full h-24 overflow-visible" viewBox="0 0 400 100" preserveAspectRatio="none">
                                 <defs>
@@ -314,7 +318,6 @@
         </div>
     </main>
 
-    <!-- Notificación Dorada -->
     <div id="toast" class="fixed bottom-safe right-4 left-4 sm:left-auto sm:right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 flex items-center justify-center sm:justify-start gap-3 bg-surfaceHover border border-primary/30 shadow-[0_5px_20px_rgba(234,179,8,0.15)] rounded-lg px-4 py-3 mb-6 sm:mb-0 pointer-events-none">
         <svg class="w-4 h-4 text-primary shrink-0" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
         <span class="text-[11px] font-mono text-white text-center">Payload copiado al portapapeles.</span>

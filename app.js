@@ -317,3 +317,28 @@ function initTerminalSim() {
         delay += Math.floor(Math.random() * 900) + 300; 
     });
 }
+
+function setNetworkStatus(isOnline) {
+    const container = document.getElementById('network-status-container');
+    const dot = document.getElementById('network-status-dot');
+    const text = document.getElementById('network-status-text');
+    
+    if (!container || !dot || !text) return;
+    
+    if (isOnline) {
+        // Estado VERDE (Activo)
+        container.className = 'relative flex items-center gap-2 px-3 py-1 rounded-full border border-green-500/40 bg-green-500/10 shadow-[0_0_15px_rgba(34,197,94,0.15)] transition-colors duration-500 overflow-hidden';
+        dot.className = 'w-1.5 h-1.5 rounded-full bg-green-500 shadow-[0_0_10px_#22c55e] animate-pulse relative z-10 transition-colors duration-500';
+        text.className = 'text-[9px] font-mono text-green-400 uppercase tracking-wider hidden sm:inline relative z-10 transition-colors duration-500';
+        text.innerText = 'API: Online';
+    } else {
+        // Estado ROJO (Inactivo)
+        container.className = 'relative flex items-center gap-2 px-3 py-1 rounded-full border border-red-500/40 bg-red-500/10 shadow-[0_0_15px_rgba(239,68,68,0.15)] transition-colors duration-500 overflow-hidden';
+        dot.className = 'w-1.5 h-1.5 rounded-full bg-red-500 shadow-[0_0_10px_#ef4444] animate-pulse relative z-10 transition-colors duration-500';
+        text.className = 'text-[9px] font-mono text-red-400 uppercase tracking-wider hidden sm:inline relative z-10 transition-colors duration-500';
+        text.innerText = 'API: Offline';
+    }
+}
+
+// Hacemos la función global para que puedas llamarla desde donde quieras
+window.setNetworkStatus = setNetworkStatus;
