@@ -28,7 +28,7 @@ const scriptDatabase = [
     // --- 🔧 CARPETA: UTILITIES ---
     {
         id: "utilities-tools",
-        title: "Rendimiento y Herramientas",
+        title: "Utilities",
         folder: "Utilities",
         scripts: [
             { 
