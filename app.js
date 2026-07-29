@@ -2,7 +2,7 @@ const scriptDatabase = [
     // --- ⚡️ CARPETA: SILENTHUB (Siempre arriba) ---
     {
         id: "silenthub-oficial",
-        title: "ScriptsVip",
+        title: "SilentHub",
         folder: "SilentHub",
         scripts: [
             { 
