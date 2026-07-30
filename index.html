@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#000000">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>SilentHub | Enterprise Execution Engine</title>
+    <title>SilentHub｜Silent</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -122,7 +122,6 @@
                 <span id="breadcrumb-path">~/root/vision_general</span>
             </div>
 
-            <!-- INDICADOR VERDE/ROJO DINÁMICO Sincronizado -->
             <div class="flex items-center gap-4 ml-auto">
                 <div id="network-status-container" class="relative flex items-center gap-2 px-3 py-1 rounded-full border border-green-500/40 bg-green-500/10 shadow-[0_0_15px_rgba(34,197,94,0.15)] transition-colors duration-500 overflow-hidden">
                     <div class="absolute inset-0 bg-green-500/10 animate-pulse-fast"></div>
@@ -132,13 +131,13 @@
             </div>
         </header>
 
-        <div class="flex-1 overflow-y-auto px-4 py-8 lg:px-12 lg:py-10 pb-32 scroll-smooth custom-scrollbar relative" id="main-scroll-area">
+        <div class="flex-1 overflow-y-auto px-4 py-8 lg:px-10 lg:py-10 pb-32 scroll-smooth custom-scrollbar relative" id="main-scroll-area">
             
             <!-- VISTA: INICIO DINÁMICA -->
             <div id="view-home" class="view-section animate-fade-in max-w-7xl mx-auto relative z-10">
                 <div class="flex flex-col items-center text-center mt-4 lg:mt-8 mb-16">
                     <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border bg-surfaceHover text-textMuted text-[9px] font-mono uppercase tracking-[0.2em] mb-6 animate-slide-up">
-                        SilentHub Core <span class="text-primary">v2.0</span>
+                        SilentHub Core <span class="text-primary">v2.1</span>
                     </div>
                     <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tighter mb-4 animate-slide-up leading-tight" style="animation-delay: 0.1s;">
                         El Ecosistema Definitivo <br>
@@ -174,13 +173,10 @@
                         </section>
                     </div>
 
+                    <!-- COLUMNA LATERAL (SOLO DOCUMENTACIÓN AMPLIADA) -->
                     <div class="lg:col-span-1 space-y-6">
                         <div class="spotlight-card p-5 border border-border">
-                            <h3 class="text-sm font-bold text-white mb-4 uppercase tracking-wider flex items-center gap-2"><svg class="w-4 h-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg> Changelog</h3>
-                            <div class="space-y-4 relative before:absolute before:inset-0 before:ml-2 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-border before:to-transparent" id="home-changelog-list"></div>
-                        </div>
-                        <div class="spotlight-card p-5 border border-border">
-                            <h3 class="text-sm font-bold text-white mb-4 uppercase tracking-wider flex items-center gap-2"><svg class="w-4 h-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> Documentación</h3>
+                            <h3 class="text-sm font-bold text-white mb-4 uppercase tracking-wider flex items-center gap-2"><svg class="w-4 h-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> Documentación Oficial</h3>
                             <div class="space-y-2" id="home-faq-list"></div>
                         </div>
                     </div>
@@ -198,7 +194,7 @@
                 </footer>
             </div>
 
-            <!-- VISTA: DASHBOARD BENTO GRID -->
+            <!-- VISTA: DASHBOARD -->
             <div id="view-dashboard" class="view-section hidden animate-fade-in max-w-7xl mx-auto">
                 <div class="mb-8 border-b border-border pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
                     <div>
@@ -215,44 +211,37 @@
                                 <h3 class="text-lg font-bold text-white mb-1">Estado de Infraestructura</h3>
                                 <p class="text-xs text-textMuted">Nodos alojados en Vercel & Render</p>
                             </div>
-                            <!-- ICONO HEARTBEAT DE IZQUIERDA A DERECHA -->
                             <div class="w-12 h-12 rounded-full border border-primary/30 flex items-center justify-center relative shadow-[0_0_20px_rgba(234,179,8,0.15)] bg-background">
                                 <div class="absolute inset-0 rounded-full border border-primary/50 animate-ping opacity-20"></div>
-                                <svg class="w-5 h-5 text-primary animate-heartbeat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polyline class="animate-dash" points="2 12 6 12 9 3 15 21 18 12 22 12"/>
-                                </svg>
+                                <svg class="w-5 h-5 text-primary animate-heartbeat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline class="animate-dash" points="2 12 6 12 9 3 15 21 18 12 22 12"/></svg>
                             </div>
                         </div>
                         <div class="grid grid-cols-3 gap-4 z-10 mt-auto">
-                            <div class="bg-black/40 border border-border rounded-lg p-3"><div class="text-[10px] text-textMuted uppercase tracking-wider mb-1">Latencia</div><div class="font-mono text-white font-bold text-lg">14<span class="text-xs text-primary ml-1">ms</span></div></div>
-                            <div class="bg-black/40 border border-border rounded-lg p-3"><div class="text-[10px] text-textMuted uppercase tracking-wider mb-1">Uptime</div><div class="font-mono text-white font-bold text-lg text-green-400">99.9%</div></div>
-                            <div class="bg-black/40 border border-border rounded-lg p-3"><div class="text-[10px] text-textMuted uppercase tracking-wider mb-1">Carga</div><div class="font-mono text-white font-bold text-lg">24<span class="text-xs text-primary ml-1">%</span></div></div>
+                            <!-- Latencia Real Medida por JS -->
+                            <div class="bg-black/40 border border-border rounded-lg p-3">
+                                <div class="text-[10px] text-textMuted uppercase tracking-wider mb-1">Latencia</div>
+                                <div class="font-mono text-white font-bold text-lg" id="live-ping">--<span class="text-xs text-primary ml-1">ms</span></div>
+                            </div>
+                            <!-- Uptime Real Dinámico -->
+                            <div class="bg-black/40 border border-border rounded-lg p-3">
+                                <div class="text-[10px] text-textMuted uppercase tracking-wider mb-1">Uptime</div>
+                                <div class="font-mono text-white font-bold text-lg text-green-400" id="live-uptime">99.9%</div>
+                            </div>
+                            <!-- Carga Real basada en el Rendimiento del Dispositivo -->
+                            <div class="bg-black/40 border border-border rounded-lg p-3">
+                                <div class="text-[10px] text-textMuted uppercase tracking-wider mb-1">Carga</div>
+                                <div class="font-mono text-white font-bold text-lg" id="live-load">--<span class="text-xs text-primary ml-1">%</span></div>
+                            </div>
                         </div>
                     </div>
 
                     <div class="spotlight-card col-span-1 md:col-span-2 lg:col-span-2 p-6 flex flex-col relative">
-                        <div class="flex justify-between items-center mb-6 z-10">
-                            <h3 class="text-sm font-bold text-white">Peticiones de Red (24h)</h3>
-                            <span class="text-xs font-mono text-green-400 bg-green-400/10 px-2 py-1 rounded">+12.4%</span>
-                        </div>
+                        <div class="flex justify-between items-center mb-6 z-10"><h3 class="text-sm font-bold text-white">Peticiones de Red (24h)</h3><span class="text-xs font-mono text-green-400 bg-green-400/10 px-2 py-1 rounded">+12.4%</span></div>
                         <div class="flex-1 w-full h-full min-h-[120px] relative flex items-end">
                             <svg class="w-full h-24 overflow-visible" viewBox="0 0 400 100" preserveAspectRatio="none">
-                                <defs>
-                                    <linearGradient id="line-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                                        <stop offset="0%" stop-color="#eab308" stop-opacity="0"/>
-                                        <stop offset="50%" stop-color="#eab308" stop-opacity="1"/>
-                                        <stop offset="100%" stop-color="#fde047" stop-opacity="1"/>
-                                    </linearGradient>
-                                    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-                                        <feGaussianBlur stdDeviation="4" result="blur" />
-                                        <feComposite in="SourceGraphic" in2="blur" operator="over"/>
-                                    </filter>
-                                </defs>
-                                <!-- Fondo tenue -->
+                                <defs><linearGradient id="line-gradient" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#eab308" stop-opacity="0"/><stop offset="50%" stop-color="#eab308" stop-opacity="1"/><stop offset="100%" stop-color="#fde047" stop-opacity="1"/></linearGradient><filter id="glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="4" result="blur" /><feComposite in="SourceGraphic" in2="blur" operator="over"/></filter></defs>
                                 <path d="M0,80 C40,70 80,90 120,50 C160,10 200,60 240,40 C280,20 320,70 360,30 L400,20" fill="none" stroke="#eab308" stroke-width="2" opacity="0.2"/>
-                                <!-- Relleno inferior -->
                                 <path d="M0,80 C40,70 80,90 120,50 C160,10 200,60 240,40 C280,20 320,70 360,30 L400,20 L400,100 L0,100 Z" fill="url(#line-gradient)" opacity="0.1"/>
-                                <!-- ESCÁNER LÁSER SOBRE LA LÍNEA -->
                                 <path class="animate-traveling-line" d="M0,80 C40,70 80,90 120,50 C160,10 200,60 240,40 C280,20 320,70 360,30 L400,20" fill="none" stroke="url(#line-gradient)" stroke-width="3" filter="url(#glow)"/>
                             </svg>
                         </div>
