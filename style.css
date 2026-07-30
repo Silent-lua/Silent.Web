@@ -1,3 +1,7 @@
+/* ==========================================================================
+   SilentHub Enterprise - Dark/Gold CSS Engine v2
+   ========================================================================== */
+
 * {
     -webkit-tap-highlight-color: transparent;
 }
@@ -88,6 +92,18 @@ body {
     z-index: 10;
 }
 
+.faq-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0, 1, 0, 1);
+}
+.faq-content.open { max-height: 200px; }
+
+/* ==========================================================================
+   Efectos Animados Avanzados (Pulsos y Escáner Láser en Gráfica)
+   ========================================================================== */
+
+/* Latido del icono SVG (Centro de Control) */
 @keyframes heartbeat {
     0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0px transparent); }
     15% { transform: scale(1.15); filter: drop-shadow(0 0 8px rgba(234,179,8,0.8)); }
@@ -99,6 +115,7 @@ body {
     animation: heartbeat 2.5s ease-in-out infinite; 
 }
 
+/* Dibujado de la línea interna del icono (De Izquierda a Derecha) */
 @keyframes dashPulse {
     0% { stroke-dashoffset: 100; opacity: 0; }
     20% { opacity: 1; }
@@ -110,20 +127,21 @@ body {
     animation: dashPulse 2.5s linear infinite; 
 }
 
+/* Escáner Láser que viaja EXACTAMENTE por la curva dorada */
 .animate-traveling-line {
     stroke-dasharray: 150 1000;
     stroke-linecap: round;
     animation: travelLine 2.5s linear infinite;
 }
-
 @keyframes travelLine {
     0% { stroke-dashoffset: 150; }
     100% { stroke-dashoffset: -600; }
 }
 
+/* Pulso rápido para el contenedor de Red Segura */
 @keyframes pulseFast {
-    0%, 100% { opacity: 0.2; }
-    50% { opacity: 0.6; }
+    0%, 100% { opacity: 0.1; }
+    50% { opacity: 0.5; }
 }
 .animate-pulse-fast { 
     animation: pulseFast 1.5s ease-in-out infinite; 

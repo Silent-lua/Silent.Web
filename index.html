@@ -103,7 +103,7 @@
                 </div>
                 <div class="flex flex-col">
                     <span class="text-[11px] font-bold text-white tracking-wide">Silent</span>
-                    <span class="text-[8px] text-primaryLight font-mono tracking-widest uppercase">Owner</span>
+                    <span class="text-[8px] text-primaryLight font-mono tracking-widest uppercase">System Owner</span>
                 </div>
             </div>
         </div>
@@ -122,10 +122,11 @@
                 <span id="breadcrumb-path">~/root/vision_general</span>
             </div>
 
+            <!-- INDICADOR VERDE/ROJO DINÁMICO Sincronizado -->
             <div class="flex items-center gap-4 ml-auto">
                 <div id="network-status-container" class="relative flex items-center gap-2 px-3 py-1 rounded-full border border-green-500/40 bg-green-500/10 shadow-[0_0_15px_rgba(34,197,94,0.15)] transition-colors duration-500 overflow-hidden">
                     <div class="absolute inset-0 bg-green-500/10 animate-pulse-fast"></div>
-                    <div id="network-status-dot" class="w-1.5 h-1.5 rounded-full bg-green-500 shadow-[0_0_10px_#22c55e] animate-pulse relative z-10"></div>
+                    <div id="network-status-dot" class="w-1.5 h-1.5 rounded-full bg-green-500 shadow-[0_0_10px_#22c55e] animate-pulse relative z-10 transition-colors duration-500"></div>
                     <span id="network-status-text" class="text-[9px] font-mono text-green-400 uppercase tracking-wider hidden sm:inline relative z-10 transition-colors duration-500">API: Online</span>
                 </div>
             </div>
@@ -133,89 +134,99 @@
 
         <div class="flex-1 overflow-y-auto px-4 py-8 lg:px-12 lg:py-10 pb-32 scroll-smooth custom-scrollbar relative" id="main-scroll-area">
             
-            <div id="view-home" class="view-section animate-fade-in max-w-5xl mx-auto relative z-10">
-                <div class="flex flex-col items-center text-center mt-4 lg:mt-12">
-                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border bg-surfaceHover text-textMuted text-[9px] font-mono uppercase tracking-[0.2em] mb-8 animate-slide-up">
-                        Protocolo Establecido <span class="text-primary">v2.0</span>
+            <!-- VISTA: INICIO DINÁMICA -->
+            <div id="view-home" class="view-section animate-fade-in max-w-7xl mx-auto relative z-10">
+                <div class="flex flex-col items-center text-center mt-4 lg:mt-8 mb-16">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border bg-surfaceHover text-textMuted text-[9px] font-mono uppercase tracking-[0.2em] mb-6 animate-slide-up">
+                        SilentHub Core <span class="text-primary">v2.0</span>
                     </div>
-                    
-                    <h1 class="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tighter mb-6 animate-slide-up leading-tight" style="animation-delay: 0.1s;">
-                        Infraestructura de Código <br>
-                        <span class="bg-clip-text text-transparent bg-gradient-to-r from-primary via-primaryLight to-yellow-600 animate-gradient-x drop-shadow-[0_0_30px_rgba(234,179,8,0.2)]">En Tiempo Real.</span>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tighter mb-4 animate-slide-up leading-tight" style="animation-delay: 0.1s;">
+                        El Ecosistema Definitivo <br>
+                        <span class="bg-clip-text text-transparent bg-gradient-to-r from-primary via-primaryLight to-yellow-600 animate-gradient-x drop-shadow-[0_0_30px_rgba(234,179,8,0.2)]">Para tus Scripts.</span>
                     </h1>
-                    
-                    <p class="text-textMuted text-sm lg:text-base max-w-2xl mb-12 animate-slide-up leading-relaxed px-4" style="animation-delay: 0.2s;">
-                        La distribución y ejecución de scripts. Construido para garantizar latencia cero y despliegue global.
+                    <p class="text-textMuted text-sm max-w-xl mb-8 animate-slide-up leading-relaxed px-4" style="animation-delay: 0.2s;">
+                        Plataforma centralizada de distribución y ejecución. Busca, copia y ejecuta con latencia cero a través de nuestra infraestructura Edge.
                     </p>
+                    
+                    <div class="w-full max-w-lg px-4 animate-slide-up" style="animation-delay: 0.3s;">
+                        <div class="relative group">
+                            <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-textMuted group-focus-within:text-primary transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                            <input type="text" id="hero-search" placeholder="Explorar el repositorio global..." class="w-full bg-background border border-border focus:border-primary/50 rounded-xl pl-12 pr-4 py-4 text-sm font-mono text-white placeholder-textMuted outline-none transition-all focus:shadow-[0_0_20px_rgba(234,179,8,0.15)]">
+                        </div>
+                    </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 lg:mt-16 animate-slide-up" style="animation-delay: 0.4s;">
-                    <div class="spotlight-card p-6 flex flex-col items-center text-center group">
-                        <div class="w-12 h-12 rounded-full border border-primary/20 bg-primary/5 flex items-center justify-center text-primary mb-4 group-hover:scale-110 transition-transform duration-300">
-                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-                        </div>
-                        <h3 class="text-sm font-semibold text-white mb-2">Inyección Directa</h3>
-                        <p class="text-xs text-textMuted leading-relaxed">Arquitectura avanzada inyectada mediante GitHub, Obfuscator, PaginaWeb</p>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 animate-slide-up" style="animation-delay: 0.4s;" id="home-stats-container"></div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 animate-slide-up" style="animation-delay: 0.5s;">
+                    <div class="lg:col-span-2 space-y-10">
+                        <section>
+                            <div class="flex items-center justify-between mb-4 border-b border-border pb-2">
+                                <h3 class="text-lg font-bold text-white flex items-center gap-2"><svg class="w-4 h-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg> Scripts Destacados</h3>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="home-featured-grid"></div>
+                        </section>
+                        <section>
+                            <div class="flex items-center justify-between mb-4 border-b border-border pb-2">
+                                <h3 class="text-lg font-bold text-white flex items-center gap-2"><svg class="w-4 h-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg> Directorios Activos</h3>
+                            </div>
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-4" id="home-categories-grid"></div>
+                        </section>
                     </div>
-                    <div class="spotlight-card p-6 flex flex-col items-center text-center group">
-                        <div class="w-12 h-12 rounded-full border border-primary/20 bg-primary/5 flex items-center justify-center text-primary mb-4 group-hover:scale-110 transition-transform duration-300">
-                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+
+                    <div class="lg:col-span-1 space-y-6">
+                        <div class="spotlight-card p-5 border border-border">
+                            <h3 class="text-sm font-bold text-white mb-4 uppercase tracking-wider flex items-center gap-2"><svg class="w-4 h-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg> Changelog</h3>
+                            <div class="space-y-4 relative before:absolute before:inset-0 before:ml-2 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-border before:to-transparent" id="home-changelog-list"></div>
                         </div>
-                        <h3 class="text-sm font-semibold text-white mb-2">Ofuscación Avanzada</h3>
-                        <p class="text-xs text-textMuted leading-relaxed">Protección de código fuente y variables mediante algoritmos estrictos.</p>
-                    </div>
-                    <div class="spotlight-card p-6 flex flex-col items-center text-center group">
-                        <div class="w-12 h-12 rounded-full border border-primary/20 bg-primary/5 flex items-center justify-center text-primary mb-4 group-hover:scale-110 transition-transform duration-300">
-                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                        <div class="spotlight-card p-5 border border-border">
+                            <h3 class="text-sm font-bold text-white mb-4 uppercase tracking-wider flex items-center gap-2"><svg class="w-4 h-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> Documentación</h3>
+                            <div class="space-y-2" id="home-faq-list"></div>
                         </div>
-                        <h3 class="text-sm font-semibold text-white mb-2">Red Edge Global</h3>
-                        <p class="text-xs text-textMuted leading-relaxed">Los scripts se distribuyen de manera gratuita y global</p>
                     </div>
                 </div>
+                
+                <footer class="mt-20 pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4 animate-slide-up" style="animation-delay: 0.6s;">
+                    <div class="flex items-center gap-2">
+                        <svg class="w-4 h-4 text-textMuted" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+                        <span class="text-xs text-textMuted font-mono">© 2026 SilentHub. System Core.</span>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="text-[10px] text-textMuted uppercase tracking-widest hover:text-primary transition-colors cursor-pointer">Privacidad</span>
+                        <span class="text-[10px] text-textMuted uppercase tracking-widest hover:text-primary transition-colors cursor-pointer">Términos</span>
+                    </div>
+                </footer>
             </div>
 
+            <!-- VISTA: DASHBOARD BENTO GRID -->
             <div id="view-dashboard" class="view-section hidden animate-fade-in max-w-7xl mx-auto">
                 <div class="mb-8 border-b border-border pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
                     <div>
-
                         <h2 class="text-3xl font-bold tracking-tight text-white mb-2">Centro de <span class="bg-clip-text text-transparent bg-gradient-to-r from-primary via-primaryLight to-yellow-600 bg-[length:200%_auto] animate-gradient-x drop-shadow-[0_0_15px_rgba(234,179,8,0.4)]">Control</span></h2>
                         <p class="text-textMuted text-sm">Monitoreo de telemetría, base de datos y nodos de ejecución en tiempo real.</p>
                     </div>
                 </div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                    
                     <div class="spotlight-card col-span-1 md:col-span-2 p-6 flex flex-col relative overflow-hidden group">
                         <div class="absolute -right-20 -top-20 w-64 h-64 bg-primary/10 rounded-full blur-[80px] transition-all group-hover:bg-primary/20"></div>
-                        
                         <div class="flex justify-between items-start z-10 mb-8">
                             <div>
                                 <h3 class="text-lg font-bold text-white mb-1">Estado de Infraestructura</h3>
-                                <p class="text-xs text-textMuted">Nodos alojados en Vercel, Render, Github, Supabase & Obfuscator</p>
+                                <p class="text-xs text-textMuted">Nodos alojados en Vercel & Render</p>
                             </div>
-
+                            <!-- ICONO HEARTBEAT DE IZQUIERDA A DERECHA -->
                             <div class="w-12 h-12 rounded-full border border-primary/30 flex items-center justify-center relative shadow-[0_0_20px_rgba(234,179,8,0.15)] bg-background">
                                 <div class="absolute inset-0 rounded-full border border-primary/50 animate-ping opacity-20"></div>
                                 <svg class="w-5 h-5 text-primary animate-heartbeat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-
                                     <polyline class="animate-dash" points="2 12 6 12 9 3 15 21 18 12 22 12"/>
                                 </svg>
                             </div>
                         </div>
-
                         <div class="grid grid-cols-3 gap-4 z-10 mt-auto">
-                            <div class="bg-black/40 border border-border rounded-lg p-3">
-                                <div class="text-[10px] text-textMuted uppercase tracking-wider mb-1">Latencia</div>
-                                <div class="font-mono text-white font-bold text-lg">20<span class="text-xs text-primary ml-1">ms</span></div>
-                            </div>
-                            <div class="bg-black/40 border border-border rounded-lg p-3">
-                                <div class="text-[10px] text-textMuted uppercase tracking-wider mb-1">Uptime</div>
-                                <div class="font-mono text-white font-bold text-lg text-green-400">99.9%</div>
-                            </div>
-                            <div class="bg-black/40 border border-border rounded-lg p-3">
-                                <div class="text-[10px] text-textMuted uppercase tracking-wider mb-1">Carga</div>
-                                <div class="font-mono text-white font-bold text-lg">24<span class="text-xs text-primary ml-1">%</span></div>
-                            </div>
+                            <div class="bg-black/40 border border-border rounded-lg p-3"><div class="text-[10px] text-textMuted uppercase tracking-wider mb-1">Latencia</div><div class="font-mono text-white font-bold text-lg">14<span class="text-xs text-primary ml-1">ms</span></div></div>
+                            <div class="bg-black/40 border border-border rounded-lg p-3"><div class="text-[10px] text-textMuted uppercase tracking-wider mb-1">Uptime</div><div class="font-mono text-white font-bold text-lg text-green-400">99.9%</div></div>
+                            <div class="bg-black/40 border border-border rounded-lg p-3"><div class="text-[10px] text-textMuted uppercase tracking-wider mb-1">Carga</div><div class="font-mono text-white font-bold text-lg">24<span class="text-xs text-primary ml-1">%</span></div></div>
                         </div>
                     </div>
 
@@ -224,7 +235,6 @@
                             <h3 class="text-sm font-bold text-white">Peticiones de Red (24h)</h3>
                             <span class="text-xs font-mono text-green-400 bg-green-400/10 px-2 py-1 rounded">+12.4%</span>
                         </div>
-
                         <div class="flex-1 w-full h-full min-h-[120px] relative flex items-end">
                             <svg class="w-full h-24 overflow-visible" viewBox="0 0 400 100" preserveAspectRatio="none">
                                 <defs>
@@ -238,11 +248,11 @@
                                         <feComposite in="SourceGraphic" in2="blur" operator="over"/>
                                     </filter>
                                 </defs>
-
+                                <!-- Fondo tenue -->
                                 <path d="M0,80 C40,70 80,90 120,50 C160,10 200,60 240,40 C280,20 320,70 360,30 L400,20" fill="none" stroke="#eab308" stroke-width="2" opacity="0.2"/>
-
+                                <!-- Relleno inferior -->
                                 <path d="M0,80 C40,70 80,90 120,50 C160,10 200,60 240,40 C280,20 320,70 360,30 L400,20 L400,100 L0,100 Z" fill="url(#line-gradient)" opacity="0.1"/>
-
+                                <!-- ESCÁNER LÁSER SOBRE LA LÍNEA -->
                                 <path class="animate-traveling-line" d="M0,80 C40,70 80,90 120,50 C160,10 200,60 240,40 C280,20 320,70 360,30 L400,20" fill="none" stroke="url(#line-gradient)" stroke-width="3" filter="url(#glow)"/>
                             </svg>
                         </div>
@@ -251,48 +261,23 @@
                     <div class="spotlight-card col-span-1 md:col-span-1 lg:col-span-1 p-6 flex flex-col">
                         <h3 class="text-sm font-bold text-white mb-6">Nodos de Datos</h3>
                         <div class="space-y-4 flex-1">
-                            <div class="flex items-center gap-3">
-                                <div class="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_#22c55e]"></div>
-                                <div class="flex-1">
-                                    <div class="text-xs text-white">Supabase DB</div>
-                                    <div class="text-[10px] text-textMuted font-mono">eu-west-1</div>
-                                </div>
-                                <div class="text-xs font-mono text-textMuted">6ms</div>
-                            </div>
-                            <div class="flex items-center gap-3">
-                                <div class="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_#22c55e]"></div>
-                                <div class="flex-1">
-                                    <div class="text-xs text-white">GitHub CDN</div>
-                                    <div class="text-[10px] text-textMuted font-mono">global-edge</div>
-                                </div>
-                                <div class="text-xs font-mono text-textMuted">12ms</div>
-                            </div>
-                            <div class="flex items-center gap-3">
-                                <div class="w-2 h-2 rounded-full bg-yellow-500 shadow-[0_0_8px_#eab308]"></div>
-                                <div class="flex-1">
-                                    <div class="text-xs text-white">Ejecutores API</div>
-                                    <div class="text-[10px] text-textMuted font-mono">us-east</div>
-                                </div>
-                                <div class="text-xs font-mono text-yellow-500">Sync...</div>
-                            </div>
+                            <div class="flex items-center gap-3"><div class="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_#22c55e]"></div><div class="flex-1"><div class="text-xs text-white">Supabase DB</div><div class="text-[10px] text-textMuted font-mono">eu-west-1</div></div><div class="text-xs font-mono text-textMuted">4ms</div></div>
+                            <div class="flex items-center gap-3"><div class="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_#22c55e]"></div><div class="flex-1"><div class="text-xs text-white">GitHub CDN</div><div class="text-[10px] text-textMuted font-mono">global-edge</div></div><div class="text-xs font-mono text-textMuted">12ms</div></div>
+                            <div class="flex items-center gap-3"><div class="w-2 h-2 rounded-full bg-yellow-500 shadow-[0_0_8px_#eab308]"></div><div class="flex-1"><div class="text-xs text-white">Ejecutores API</div><div class="text-[10px] text-textMuted font-mono">us-east</div></div><div class="text-xs font-mono text-yellow-500">Sync...</div></div>
                         </div>
                     </div>
 
                     <div class="spotlight-card col-span-1 md:col-span-2 lg:col-span-3 flex flex-col relative overflow-hidden h-64">
                         <div class="bg-black/60 border-b border-border px-4 py-2 flex items-center gap-2">
-                            <div class="flex gap-1.5">
-                                <div class="w-2.5 h-2.5 rounded-full bg-red-500/80"></div>
-                                <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></div>
-                                <div class="w-2.5 h-2.5 rounded-full bg-green-500/80"></div>
-                            </div>
+                            <div class="flex gap-1.5"><div class="w-2.5 h-2.5 rounded-full bg-red-500/80"></div><div class="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></div><div class="w-2.5 h-2.5 rounded-full bg-green-500/80"></div></div>
                             <span class="text-[10px] font-mono text-textMuted ml-2">silenthub-terminal ~ root</span>
                         </div>
-                        <div class="p-4 flex-1 overflow-y-auto thin-scrollbar font-mono text-[11px] bg-[#050505] relative scanline-container" id="terminal-logs">
-                        </div>
+                        <div class="p-4 flex-1 overflow-y-auto thin-scrollbar font-mono text-[11px] bg-[#050505] relative scanline-container" id="terminal-logs"></div>
                     </div>
                 </div>
             </div>
 
+            <!-- VISTA: CATALOGO -->
             <div id="view-catalog" class="view-section hidden animate-fade-in max-w-6xl mx-auto">
                 <div class="mb-6 lg:mb-8 border-b border-border pb-4">
                     <div class="text-[9px] sm:text-[10px] font-mono text-primary mb-1 uppercase tracking-[0.2em]" id="catalog-category">Directorio</div>
@@ -301,6 +286,7 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-5" id="scripts-grid"></div>
             </div>
 
+            <!-- VISTA: BÚSQUEDA -->
             <div id="view-search" class="view-section hidden animate-fade-in max-w-6xl mx-auto">
                 <div class="mb-6 lg:mb-8 border-b border-border pb-4">
                     <h2 class="text-lg sm:text-xl font-bold text-white mb-1">Resultados de indexación</h2>
@@ -314,7 +300,7 @@
 
     <div id="toast" class="fixed bottom-safe right-4 left-4 sm:left-auto sm:right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 flex items-center justify-center sm:justify-start gap-3 bg-surfaceHover border border-primary/30 shadow-[0_5px_20px_rgba(234,179,8,0.15)] rounded-lg px-4 py-3 mb-6 sm:mb-0 pointer-events-none">
         <svg class="w-4 h-4 text-primary shrink-0" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
-        <span class="text-[11px] font-mono text-white text-center">Copiado en Portapapeles.</span>
+        <span class="text-[11px] font-mono text-white text-center">Payload copiado al portapapeles.</span>
     </div>
 </body>
 </html>
